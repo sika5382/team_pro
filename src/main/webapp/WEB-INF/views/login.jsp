@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>Insert title here</title>
+<meta charset="utf-8">
+<title>로그인</title>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
@@ -83,10 +83,76 @@
 }
 
 </style>
+<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
+<!-- naver 로그인 라이브러리 -->
+<script>
+	function inputChk(){
+		var userid = document.getElementById("userid").value;
+		var userpwd = document.getElementById("userpwd").value;
+		if(userid == ""){
+			document.getElementById("userid").focus()
+			alert("아이디를 입력해주세요")	
+		}else if(userpwd == ""){
+			alert("비밀번호를 입력해주세요")
+			document.getElementById("userpwd").focus()
+		}else{
+			var form = document.getElementById("login-form")
+			form.submit();
+		}
+	}
+	Kakao.init("e5a27f0557cdc4441fa727aba3bbeffd");//javascript 키값
+	function loginWithKakao() {
+	    Kakao.Auth.login({
+	      success: function(authObj) {
+	    	  console.log("success")
+	    	  Kakao.API.request({//로그인 성공 시 사용자에 대한 정보 얻어오겠다
+					url:'/v2/user/me',//카카오에 대한 경로이므로 그대로 사용
+					success: function(res){//res로 결과값 받아옴						
+						console.log('아이디 : '+res.id);
+						console.log('이메일 : '+res.kaccount_email);
+						console.log('닉네임 : '+res.properties['nickname']);
+						console.log('토큰 값 : '+authObj.access_token);						
+						var result = JSON.stringify(res);
+						$.ajax({
+							url : "success",//원하는 경로, location.href
+							type : "post",//통신 방식
+							contentType : 'application/json; charset=utf-8',
+							data : result,
+							success : function(cnt){//제대로 통신이 진행된 경우 return 값이 cnt로 들어옴
+								console.log("ajax 성공")
+								location.href=cnt;				
+							},
+							error : function(){//통신 실패했을 경우
+								alert("문제가 발생했습니다.")
+							}
+						});//중괄호 안에 원하는 내용 작성
+						alert('로그인 성공!')
+					}, fail: function(err){
+						alert(JSON.stringify(err))
+					}
+				})
+	      },
+	      fail: function(err) {
+	        alert(JSON.stringify(err))
+	      },
+	    })
+	  }
+	var naverLogin = new naver.LoginWithNaverId(
+			{
+				clientId: "lghlRZ2x21u9zidXG7JU",
+				callbackUrl: "http://localhost:8090/team/myPage",
+				isPopup: true, /* 팝업을 통한 연동처리 여부 */
+				loginButton: {color: "green", type: 3, height: 60} /* 로그인 버튼의 타입을 지정 */
+			}
+		);
+		
+		/* 설정정보를 초기화하고 연동을 준비 */
+		naverLogin.init();
+</script>
 </head>
 <body>
-
-
 
 <div class="container" align = "center" >
     <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
@@ -94,46 +160,102 @@
         	<div id ="header">
         		<h1>
 		            <a href="#" class="sp h_logo"id="log.team">
-		                <span class="blind">ȯ���մϴ�!</span>
+		                <span class="blind">환영합니다!</span>
 		            </a>
            		 </h1>
             </div>
             <div class="panel-body">
-                <form id="login-form">
+                <form id="login-form" method="post" action="userChk">
                     <div>
-                        <input type="text" class="form-control" name="username" placeholder="ID" autofocus>
+                        <input type="text" class="form-control" name="userid" id="userid" placeholder="ID" autofocus>
                     </div>
                     <div>
-                        <input type="password" class="form-control" name="password" placeholder="Password">
+                        <input type="password" class="form-control" name="userpwd" id="userpwd" placeholder="Password">
                     </div>
                     <div>
-                        <button type="submit" class="btn_global" >�α���</button>
+                        <button type="button" class="btn_global" onclick="inputChk()">로그인</button>
                     </div>
                     <div>
                     	<div>
                     		<span>
                     			<input type ="checkbox" id="login_chk">
                     			<label >
-                    				�α��� ���� ����
+                    				로그인 상태 유지
                     			</label>
                     		</span>
                     	</div>	
                     </div>
+						<a id="custom-login-btn" href="javascript:loginWithKakao()"> 
+							<img
+							src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg"
+							width="222" />
+						</a>
+						<!-- 네이버아이디로로그인 버튼 노출 영역 -->
+					<div id="naverIdLogin">
+						
+					</div>
                 </form>
             </div>
            
         </div>
     </div>
 </div>
+<!-- 네이버아디디로로그인 초기화 Script -->
+<script type="text/javascript">
+	var naverLogin = new naver.LoginWithNaverId(
+		{
+			clientId: "lghlRZ2x21u9zidXG7JU",
+			callbackUrl: "http://localhost:8090/team/login",
+			callbackHandle: true,
+			isPopup: true, /* 팝업을 통한 연동처리 여부 */
+			loginButton: {color: "green", type: 3, height: 48.13} /* 로그인 버튼의 타입을 지정 */
+		}
+	);
+	
+	/* 설정정보를 초기화하고 연동을 준비 */
+	naverLogin.init();
+	
+	window.addEventListener('load', function () {
+		naverLogin.getLoginStatus(function (status) {
+			if (status) {
+				/* 필수적으로 받아야하는 프로필 정보가 있다면 callback처리 시점에 체크 */
+				var email = naverLogin.user.getEmail();
+				if( email == undefined || email == null) {
+					alert("이메일은 필수정보입니다. 정보제공을 동의해주세요.");
+					/* 사용자 정보 재동의를 위하여 다시 네아로 동의페이지로 이동함 */
+					naverLogin.reprompt();
+					return;
+				}
+			} else {
+				console.log("callback 처리에 실패하였습니다.");
+			}
+		});
+	});
+	naverLogin.getLoginStatus(function (status) {
+		if (status) {
+			var email = naverLogin.user.getEmail();
+			var name = naverLogin.user.getNickName();
+			var profileImage = naverLogin.user.getProfileImage();
+			var birthday = naverLogin.user.getBirthday();			
+			var uniqId = naverLogin.user.getId();
+			var age = naverLogin.user.getAge();
+			console.log(email);
+			console.log(name);
+			console.log(profileImage);
+		} else {
+			console.log("AccessToken이 올바르지 않습니다.");
+		}
+	});
+</script>
+<!-- // 네이버아이디로로그인 초기화 Script -->
  <hr>
 <div class="position_a" align = "center">
 	<div class="find_info">
-		<a target="_blank" id="idinquiry" href="#">���̵� ã��</a>
+		<a target="_blank" id="idinquiry" href="#">아이디 찾기</a>
 		<span class="bar" aria-hidden="true">|</span>
-		<a target="_blank" id="pwdinquiry" href="#">��й�ȣ ã��</a>
+		<a target="_blank" id="pwdinquiry" href="#">비밀번호 찾기</a>
 		<span class="bar" aria-hidden="true">|</span>
-		<a target="_blank" id="register" href="#">ȸ������</a>
-	
+		<a target="_blank" id="register" href="#">회원가입</a>
 	</div>
 </div>
 
