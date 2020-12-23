@@ -139,17 +139,6 @@
 	      },
 	    })
 	  }
-	var naverLogin = new naver.LoginWithNaverId(
-			{
-				clientId: "lghlRZ2x21u9zidXG7JU",
-				callbackUrl: "http://localhost:8090/team/myPage",
-				isPopup: true, /* 팝업을 통한 연동처리 여부 */
-				loginButton: {color: "green", type: 3, height: 60} /* 로그인 버튼의 타입을 지정 */
-			}
-		);
-		
-		/* 설정정보를 초기화하고 연동을 준비 */
-		naverLogin.init();
 </script>
 </head>
 <body>
@@ -205,8 +194,8 @@
 	var naverLogin = new naver.LoginWithNaverId(
 		{
 			clientId: "lghlRZ2x21u9zidXG7JU",
-			callbackUrl: "http://localhost:8090/team/login",
-			callbackHandle: true,
+			callbackUrl: "http://localhost:8090/team/naverLogin",
+			callbackHandle: false,
 			isPopup: true, /* 팝업을 통한 연동처리 여부 */
 			loginButton: {color: "green", type: 3, height: 48.13} /* 로그인 버튼의 타입을 지정 */
 		}
@@ -215,37 +204,6 @@
 	/* 설정정보를 초기화하고 연동을 준비 */
 	naverLogin.init();
 	
-	window.addEventListener('load', function () {
-		naverLogin.getLoginStatus(function (status) {
-			if (status) {
-				/* 필수적으로 받아야하는 프로필 정보가 있다면 callback처리 시점에 체크 */
-				var email = naverLogin.user.getEmail();
-				if( email == undefined || email == null) {
-					alert("이메일은 필수정보입니다. 정보제공을 동의해주세요.");
-					/* 사용자 정보 재동의를 위하여 다시 네아로 동의페이지로 이동함 */
-					naverLogin.reprompt();
-					return;
-				}
-			} else {
-				console.log("callback 처리에 실패하였습니다.");
-			}
-		});
-	});
-	naverLogin.getLoginStatus(function (status) {
-		if (status) {
-			var email = naverLogin.user.getEmail();
-			var name = naverLogin.user.getNickName();
-			var profileImage = naverLogin.user.getProfileImage();
-			var birthday = naverLogin.user.getBirthday();			
-			var uniqId = naverLogin.user.getId();
-			var age = naverLogin.user.getAge();
-			console.log(email);
-			console.log(name);
-			console.log(profileImage);
-		} else {
-			console.log("AccessToken이 올바르지 않습니다.");
-		}
-	});
 </script>
 <!-- // 네이버아이디로로그인 초기화 Script -->
  <hr>

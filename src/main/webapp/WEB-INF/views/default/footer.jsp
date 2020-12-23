@@ -5,6 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	footer{position:absolute; margin-bottom:0; width:100%;}
+</style>
 </head>
 <body>
 <!-- Footer -->

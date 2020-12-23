@@ -192,15 +192,28 @@
     <groupId>org.aspectj</groupId>
     <artifactId>aspectjrt</artifactId>
     <version>1.8.6</version>
-</dependency> 
+</dependency>   
 
-<!-- Gson 추가, 문자열로 바꿔주는 기능 -->
-<dependency>
-<groupId>com.google.code.gson</groupId>
-<artifactId>gson</artifactId>
-<version>2.8.5</version>
-</dependency>
-       
+	<!-- Json -->
+	<dependency>
+   		<groupId>com.fasterxml.jackson.core</groupId>
+   		<artifactId>jackson-databind</artifactId>
+   		<version>2.9.5</version>
+	</dependency>
+	<dependency>
+  		<groupId>net.sf.json-lib</groupId>
+   		<artifactId>json-lib</artifactId>
+   		<version>2.4</version>
+   		<classifier>jdk15</classifier>
+	</dependency>
+	
+		<!-- google gson -->
+	<dependency>
+  		<groupId>com.google.code.gson</groupId>
+  		<artifactId>gson</artifactId>
+  		<version>2.8.6</version>
+	</dependency>
+	     
 	</dependencies>
     <build>
         <plugins>
