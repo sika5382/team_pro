@@ -126,9 +126,7 @@
 							</c:when>
 							<c:otherwise>
 								<li class="nav-item px-1"><a class="nav-link"
-									href="/team/myPage">MyPage</a></li>
-								<li class="nav-item px-1"><a class="nav-link"
-									href="/team/member/myRegister?id=${userid}">MyRegister</a></li>
+									href="/team/member/myPage?id=${userid}">MyPage</a></li>
 								<li class="nav-item px-1"><a class="nav-link"
 									href="/team/logout">Logout</a></li>
 								</c:otherwise>

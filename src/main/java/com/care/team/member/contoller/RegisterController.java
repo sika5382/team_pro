@@ -85,17 +85,16 @@ public class RegisterController {
 	}
 	
 	//회원수정 이동 및 회원 데이터 호출
-	@RequestMapping("myRegister")
+	@RequestMapping("myPage")
 	public String myRegister(Model model, @RequestParam("id") String userId) {
 		rs.myRegister(model,userId);
-		return "member/myRegister";
+		return "member/myPage";
 	}
 	
-	//이미지 변경창 팝업띄움
+	//이미지 변경창으로 이동
 	@RequestMapping("profile")
 	public String profile() {
-		return "member/profile";		
-	}
+		return "member/profile";		}
 	
 	//이미지 변경
 	@RequestMapping("profile_change")
@@ -134,7 +133,7 @@ public class RegisterController {
 		if( !ori.equals(ori_pwd) ) { //여기서 기존 비밀번호와 입력 기존 비밀번호 확인
 			
 			out.println("<script>");
-			out.println("alert('현재 비밀번호가 다릅니다 \n 다시 입력해주세요');");
+			out.println("alert('현재 비밀번호가 다릅니다 다시 입력해주세요');");
 			out.println("history.back();");
 			out.println("</script>");
 			out.flush();
@@ -143,7 +142,7 @@ public class RegisterController {
 			rs.pwdModify(dto);
 			
 			out.println("<script>");
-			out.println("alert('비밀번호가 정상적으로 변경되었습니다.');");
+			out.println("alert('비밀번호가 정상적으로 변경되었습니다 다시 로그인해주세요');");
 			out.println("location.href='/team/login';");
 			out.println("</script>");
 			out.flush();
