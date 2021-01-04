@@ -14,6 +14,10 @@
 	src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 
+<!-- js파일 삽입 -->
+<script type="text/javascript"
+	src="<%=request.getContextPath() %>/resources/js/registerForm.js"></script>
+
 <link rel="shortcut icon" href="#">
 
 <title>아직 미정</title>
@@ -50,14 +54,14 @@ body {
 <body>
 
 	<%@ include file="/WEB-INF/views/default/header.jsp" %>
-
+s
 	<div class="cotainer">
 		<div class="row justify-content-center">
 			<div class="col-md-8">
 				<div class="card">
 					<div class="card-header">회원가입</div>
 					<div class="card-body">
-						<form action="registerCheck" method="post" name="my-form">
+						<form id="fo" action="registerCheck" method="post" name="my-form">
 
 							<!-- userID -->
 							<div class="form-group row">
@@ -142,13 +146,15 @@ body {
 									<div class="check_font" id="birth_check"></div>
 								</div>
 							</div>
-
-							<!-- submit 및 reset 버튼 -->
-							<div class="col-md-6 offset-md-4">
-								<button type="submit" class="btn btn-primary" id="btn_submit">회원가입</button>
-								&nbsp;&nbsp;
-								<button type="reset" class="btn btn-danger" id="btn_reset">다시입력</button>
-							</div>
+							
+								<!-- submit 및 reset 버튼 -->
+								<div class="col-md-6 offset-md-4">
+									<button type="submit"class=" btn btn-primary">회원가입</button>
+									<!-- <button type="button" class="btn btn-primary" id="btn_submit" 
+										onclick="userChk()">회원가입</button> -->
+									&nbsp;&nbsp;
+									<button type="reset" class="btn btn-danger" id="btn_reset">다시입력</button>
+								</div>
 						</form>
 					</div>
 				</div>

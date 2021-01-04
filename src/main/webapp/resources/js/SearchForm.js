@@ -105,3 +105,79 @@ function birthChk() {
 		$("#btn_submit").attr("disabled", true);
 	}
 }
+
+	function searchChk(menu){
+		var menu = menu;
+		if(menu == 'idinquiry'){
+			document.getElementById("searchPwd").style.display="none";
+			document.getElementById("searchId").style.display="";
+			
+			console.log("d");
+			console.log(menu);
+		}else{
+			document.getElementById("searchId").style.display="none";
+			document.getElementById("searchPwd").style.display="";
+			console.log("a");
+			console.log(menu);
+		}
+	}
+
+	function changeMenu(menu){
+		console.log(menu);
+		if(menu == 'idinquiry'){
+			document.getElementById("searchPwd").style.display="none";
+			document.getElementById("searchId").style.display="";
+			console.log(menu);
+		}else{
+			document.getElementById("searchId").style.display="none";
+			document.getElementById("searchPwd").style.display="";
+			console.log(menu);
+		}
+	}
+	$(document).ready(function(){
+		var zIndex = 99;
+		var bg = $('<div>');
+		//모달 기능
+		//1. 모달 불러오기
+		$("#btn_id").click(function(){
+			var idv="";//비밀번호 찾기에서 아이디 자동입력 되도록 따로 저장한 아이디
+			bg
+				.css({
+					position: 'fixed',
+					zIndex: zIndex,
+					left: '0px',
+					top: '0px',
+					width: '100%',
+					height: '100%',
+					overflow: 'auto',
+					backgroundColor: 'rgba(0,0,0,0.4)'
+				})
+				.appendTo('body');
+			$("#background_modal").show();
+
+			$.ajax({
+				type:"POST",
+				url:"/team/searchId?name="+$("#id_name").val()+
+						"&birth="+$("#user_birth").val()+"&email="+$("#id_user_email").val(),
+				success: function(data){
+					console.log(data);
+					if(data == 0){
+						$("#id_value").text("존재하지 않습니다.\n입력하신 정보를 다시 확인해주시기 바랍니다.");
+					}else{
+						data = data+" 입니다.";
+						$("#id_value").text(data);
+						idv = data;
+					}
+				}, fail(err){
+					console.log(err);
+				}
+			});
+			
+		});
+		//2. 모달창 닫기
+		$(".close").on('click', function(){
+			bg.remove();
+			$("#background_modal").hide();
+		});
+		
+	});

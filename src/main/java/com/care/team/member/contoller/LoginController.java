@@ -44,7 +44,7 @@ public class LoginController {
 			session.setAttribute("nickname", dto.getNickname());
 			session.setAttribute("login", "system");
 			System.out.println("session 생성 : "+session.getAttribute("userid"));
-			out.println("<script>alert('로그인 성공!'); location.href='myPage'</script>");
+			out.println("<script>alert('로그인 성공!'); location.href='/team/'</script>");
 			out.flush();
 		}else {//login fail 
 			out.println("<script>alert('로그인 실패! 아이디와 비밀번호를 확인하시기 바랍니다'); location.href='login'</script>");
@@ -67,16 +67,14 @@ public class LoginController {
 		session.setAttribute("nickname", nickname);
 		session.setAttribute("userid", id);
 		session.setAttribute("login", "kakao");
-		return "myPage";
+		return "redirect:/";
 	}
-	@RequestMapping("myPage")
-	public String mypage() {
-		return "member/myPage";
-	}
+	
 	@RequestMapping("naverLogin")
 	public String test() {
 		return "login/naverLogin";
 	}
+	
 	@RequestMapping("naverSuccess")
 	public String naverSuccess(@RequestParam("id") String id, 
 								@RequestParam("nickname") String nickname,
@@ -93,6 +91,7 @@ public class LoginController {
          out.flush();
 		return "member/myPage";
 	}
+	
 	@RequestMapping("logout")
 	public String logout(HttpSession session) {
 		session.invalidate();

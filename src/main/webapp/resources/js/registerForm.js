@@ -195,3 +195,5 @@ function birthChk() {
 		$("#btn_submit").attr("disabled", true);
 	}
 }
+
+
