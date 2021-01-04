@@ -50,44 +50,9 @@ body {
 		<h1>내정보</h1>
 		<hr>
 		<div class="row">
-			<div class="col-lg-3">
-				<h1 class="my-4">회원정보</h1>
-				<div class="list-group">
-					<c:choose>
-						<c:when test="${userid == null }">
-							<a href="<%=request.getContextPath() %>/login"
-								 class="list-group-item">기본정보</a> 
-							<a href="<%=request.getContextPath() %>/login" 
-								class="list-group-item">프로필 사진 변경</a>
-							<a href="<%=request.getContextPath() %>/login" 
-								class="list-group-item">비밀번호 변경</a> 
-							<a href="<%=request.getContextPath() %>/login" 
-								class="list-group-item">회원탈퇴</a>
-						</c:when>
-						<c:otherwise>
-							<a href="<%=request.getContextPath() %>/member/myPage?id=${userid}" 
-								class="list-group-item">기본정보</a>
-							<a href="<%=request.getContextPath() %>/member/profile?id=${userid}" 
-								class="list-group-item">프로필 사진 변경</a> 
-							<a href="<%=request.getContextPath() %>/member/passwordModify?id=${userid}" 
-								class="list-group-item">비밀번호 변경</a> 
-							<c:choose>
-								<c:when test="${delete == null}">
-									<a href="<%=request.getContextPath() %>/member/deleteCheck?id=${userid}" 
-										class="list-group-item">회원탈퇴</a>
-								</c:when>
-								<c:otherwise>
-									<a href="<%=request.getContextPath() %>/member/registerDelete?id=${userid}" 
-										class="list-group-item">회원탈퇴</a>
-								</c:otherwise>
-							</c:choose>
-						</c:otherwise>
-					</c:choose>
-					
-				</div>
-			</div>
-			<!-- /.col-lg-3 -->
-
+			
+			<%@ include file="/WEB-INF/views/default/kategorie.jsp"%>
+			
 			<div class="col-lg-9">
 				<div class="row justify-content-center">
 					<div class="col-lg-8">

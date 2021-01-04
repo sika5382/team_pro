@@ -50,48 +50,14 @@ body {
 <body>
 
 	<%@ include file="/WEB-INF/views/default/header.jsp"%>
-	
+
 	<!-- Page Content -->
 	<div class="container" id="main">
 		<h1>내정보</h1>
 		<hr>
 		<div class="row">
-			<div class="col-lg-3">
-				<h1 class="my-4">회원정보</h1>
-				<div class="list-group">
-					<c:choose>
-						<c:when test="${userid == null }">
-							<a href="<%=request.getContextPath() %>/login"
-								 class="list-group-item">기본정보</a> 
-							<a href="<%=request.getContextPath() %>/login" 
-								class="list-group-item">프로필 사진 변경</a>
-							<a href="<%=request.getContextPath() %>/login" 
-								class="list-group-item">비밀번호 변경</a> 
-							<a href="<%=request.getContextPath() %>/login" 
-								class="list-group-item">회원탈퇴</a>
-						</c:when>
-						<c:otherwise>
-							<a href="<%=request.getContextPath() %>/member/myRegister?id=${userid}" 
-								class="list-group-item">기본정보</a>
-							<a href="<%=request.getContextPath() %>/member/profile?id=${userid}" 
-								class="list-group-item">프로필 사진 변경</a> 
-							<a href="<%=request.getContextPath() %>/member/passwordModify?id=${userid}" 
-								class="list-group-item">비밀번호 변경</a> 
-							<c:choose>
-								<c:when test="${delete == null}">
-									<a href="<%=request.getContextPath() %>/member/deleteCheck?id=${userid}" 
-										class="list-group-item">회원탈퇴</a>
-								</c:when>
-								<c:otherwise>
-									<a href="<%=request.getContextPath() %>/member/registerDelete?id=${userid}" 
-										class="list-group-item">회원탈퇴</a>
-								</c:otherwise>
-							</c:choose>
-						</c:otherwise>
-					</c:choose>
-				</div>
-			</div>
-			<!-- /.col-lg-3 -->
+
+			<%@ include file="/WEB-INF/views/default/kategorie.jsp"%>
 
 			<div class="col-lg-9">
 				<div class="row justify-content-center">
@@ -100,23 +66,19 @@ body {
 							<div class="card-header">회원 탈퇴</div>
 							<div class="card-body">
 								<!-- button으로 탈퇴 넘어가기 -->
-									<div style="text-align: center;">
+								<div style="text-align: center;">
 									<br>
-										<h3>
-											${userid}님 탈퇴하시겠습니까?
-										</h3>
-										<br>
-										<br>
+									<h3>${userid}님 탈퇴하시겠습니까?</h3>
+									<br> <br>
+								</div>
+
+								<form id="delinfo" action="userdelete">
+									<input type="hidden" name="id" value="${userid}">
+									<div class="col-md-6 offset-md-4">
+										<button type="button" class="btn btn-primary"
+											onclick="Delete()">탈퇴하기</button>
 									</div>
-									
-									<form id="delinfo" action="userdelete" >
-										<input type="hidden" name="id" value="${userid}">
-										<div class="col-md-6 offset-md-4">
-											<button type="button" class="btn btn-primary"
-												onclick="Delete()">탈퇴하기</button>
-										</div>
-									</form>
-									
+								</form>
 							</div>
 						</div>
 					</div>
