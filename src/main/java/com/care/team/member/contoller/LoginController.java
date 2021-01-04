@@ -89,7 +89,8 @@ public class LoginController {
          out.println("<script>window.opener.location.href=\"myPage\";"
          		+ "				window.close();</script>");
          out.flush();
-		return "member/myPage";
+         //네이버 성공시 홈으로 변경
+		return "/team/";
 	}
 	
 	@RequestMapping("logout")

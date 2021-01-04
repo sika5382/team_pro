@@ -24,7 +24,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Service
 public class BoardFileServiceImpl implements BoardFileService{
+	
 	private final String IMAGE_REPO = "c:\\spring\\image_repo2";
+	
 	public Map<String, Object> getData(MultipartHttpServletRequest multipartRequest) throws Exception{
 		multipartRequest.setCharacterEncoding("utf-8");
 		Map<String, Object> writeMap = new HashMap<String, Object>();
@@ -38,6 +40,7 @@ public class BoardFileServiceImpl implements BoardFileService{
 		writeMap.put("image_file_name", imageFileName);
 		return writeMap;
 	}
+	
 	private String uploadFile(MultipartHttpServletRequest multipartRequest) throws Exception{
 		String imageFileName= null;
 		Iterator<String> fileNames = multipartRequest.getFileNames();
@@ -74,6 +77,7 @@ public class BoardFileServiceImpl implements BoardFileService{
 		}
 		return message;
 	}
+	
 	public void download(int write_no,String image_file_name, 
 			HttpServletResponse response) throws Exception {
 		OutputStream out = response.getOutputStream();
@@ -117,6 +121,7 @@ public class BoardFileServiceImpl implements BoardFileService{
 		message +=" </script>";
 		return message;
 	}
+	
 	public void boardFileDelete(int write_no) throws Exception {
 		File destDir = new File(IMAGE_REPO+"\\"+write_no);
 		FileUtils.deleteDirectory(destDir);

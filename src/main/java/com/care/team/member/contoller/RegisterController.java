@@ -2,29 +2,29 @@ package com.care.team.member.contoller;
 
 import java.io.PrintWriter;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.care.team.member.data.MemberDTO;
-import com.care.team.member.service.MemberServiceImpl;
 import com.care.team.member.service.RegisterService;
 
 @Controller
 @RequestMapping("member")
 public class RegisterController {
 	
-	@Autowired
-	RegisterService rs;
-	MemberServiceImpl ms;
+	@Autowired RegisterService rs;
 	
 	//회원가입 폼으로 이동
 	@RequestMapping("registerForm")
@@ -91,23 +91,33 @@ public class RegisterController {
 		return "member/myPage";
 	}
 	
-	//이미지 변경창으로 이동
-	@RequestMapping("profile")
-	public String profile() {
-		return "member/profile";		}
-	
-	//이미지 변경
-	@RequestMapping("profile_change")
-	public void profile_change() {
-			
-	}
-	
 	//회원정보 수정
 	@RequestMapping(value = "modifyCheck", method = RequestMethod.POST )
 	public String modifyCheck(MemberDTO member,	RedirectAttributes ra) {
-		rs.modifyCheck(member);
 		ra.addAttribute("id", member.getId());
-		return "redirect:myRegister";
+		return "redirect:myPage";
+	}
+	
+	//프로필 사진 변경 페이지 이동
+	@RequestMapping("profile")
+	public String profile(Model model, @RequestParam("id") String userId) {
+		rs.myRegister(model,userId); //회원 정보 호출
+		return "member/profile";
+	}
+	
+	//프로필 사진 변경
+	@PostMapping("userProfile")
+	public void userProfile(MultipartHttpServletRequest multipart, 
+									HttpServletResponse response) throws Exception {
+		
+		String userId = multipart.getParameter("id");
+		
+		response.setContentType("text/html; charset=utf-8");
+		PrintWriter out = response.getWriter();
+		
+		String message = rs.userProfile(multipart, userId);
+
+		out.println(message);
 	}
 	
 	//비밀번호 변경페이지 이동 및 회원의 정보 가져오기
@@ -194,9 +204,9 @@ public class RegisterController {
 	
 	//회원탈퇴
 	@RequestMapping("userdelete")
-	public String userdelete(@RequestParam("id") String userId,
+	public String userDelete(@RequestParam("id") String userId,
 			HttpSession session) {
-		rs.userdelte(userId);
+		rs.userDelete(userId);
 		session.invalidate();
 		return "redirect:/login";
 	}

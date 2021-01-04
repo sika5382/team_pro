@@ -41,6 +41,7 @@ public class BoardController {
 	public String writeForm() {
 		return "board/writeForm";
 	}
+	
 	@PostMapping("writeSave")
 	public ResponseEntity writeSave(MultipartHttpServletRequest multipartRequest) throws Exception {
 		String message = bs.writeSave(multipartRequest);
@@ -50,11 +51,13 @@ public class BoardController {
 		resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
 		return resEnt;
 	}
+	
 	@GetMapping("contentView")
 	public String contentView(@RequestParam("write_no") int write_no, Model model) {
 		bs.contentView(write_no,model);
 		return "board/contentView";
 	}
+	
 	@GetMapping("download")
 	public void download(@RequestParam("write_no") int write_no,
 					@RequestParam("image_file_name") String image_file_name,
@@ -62,6 +65,7 @@ public class BoardController {
 		System.out.println("컨트롤러 실행 ");
 		bfs.download(write_no, image_file_name, response);
 	}
+	
 	@PostMapping("modify")
 	public ResponseEntity modify(MultipartHttpServletRequest multiRequest,
 			HttpServletResponse response)throws Exception {
@@ -73,6 +77,7 @@ public class BoardController {
 		resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
 		return resEnt;
 	}
+	
 	@GetMapping("boardDelete")
 	public ResponseEntity boardDelete(@RequestParam("write_no") int write_no,
 			HttpServletResponse response) {

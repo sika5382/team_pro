@@ -58,13 +58,17 @@ body {
 							<a href="<%=request.getContextPath() %>/login"
 								 class="list-group-item">기본정보</a> 
 							<a href="<%=request.getContextPath() %>/login" 
+								class="list-group-item">프로필 사진 변경</a>
+							<a href="<%=request.getContextPath() %>/login" 
 								class="list-group-item">비밀번호 변경</a> 
 							<a href="<%=request.getContextPath() %>/login" 
 								class="list-group-item">회원탈퇴</a>
 						</c:when>
 						<c:otherwise>
-							<a href="<%=request.getContextPath() %>/member/myRegister?id=${userid}" 
-								class="list-group-item">기본정보</a> 
+							<a href="<%=request.getContextPath() %>/member/myPage?id=${userid}" 
+								class="list-group-item">기본정보</a>
+							<a href="<%=request.getContextPath() %>/member/profile?id=${userid}" 
+								class="list-group-item">프로필 사진 변경</a> 
 							<a href="<%=request.getContextPath() %>/member/passwordModify?id=${userid}" 
 								class="list-group-item">비밀번호 변경</a> 
 							<c:choose>
@@ -90,7 +94,7 @@ body {
 						<div class="card">
 							<div class="card-header">회원정보 수정</div>
 							<div class="card-body">
-								<form id="mdfo" action="modifyCheck" method="post" name="my-form">
+								<form id="mdfo" action="modifyCheck" method="post">
 
 									<!-- userID 수정불가 설정-->
 									<div class="form-group row">
@@ -154,19 +158,6 @@ body {
 												onblur="emailChk()">
 										</div>
 									</div>
-
-									<!-- profile img -->
-									<!--  -->
-									<!-- <div class="form-group row">
-										<label for="user_img"
-											class="col-md-4 col-form-label text-md-right"> 프로필
-											이미지 
-										</label>
-										<div class="col-md-6">
-											<input type="file" id="exampleInputFile">
-										</div>
-									</div> -->
-
 
 									<!-- submit 및 reset 버튼 -->
 									<div class="col-md-6 offset-md-4">

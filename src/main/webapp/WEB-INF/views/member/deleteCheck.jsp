@@ -55,13 +55,17 @@ body {
 							<a href="<%=request.getContextPath() %>/login"
 								 class="list-group-item">기본정보</a> 
 							<a href="<%=request.getContextPath() %>/login" 
+								class="list-group-item">프로필 사진 변경</a>
+							<a href="<%=request.getContextPath() %>/login" 
 								class="list-group-item">비밀번호 변경</a> 
 							<a href="<%=request.getContextPath() %>/login" 
 								class="list-group-item">회원탈퇴</a>
 						</c:when>
 						<c:otherwise>
-							<a href="<%=request.getContextPath() %>/member/myRegister?id=${userid}" 
-								class="list-group-item">기본정보</a> 
+							<a href="<%=request.getContextPath() %>/member/myPage?id=${userid}" 
+								class="list-group-item">기본정보</a>
+							<a href="<%=request.getContextPath() %>/member/profile?id=${userid}" 
+								class="list-group-item">프로필 사진 변경</a> 
 							<a href="<%=request.getContextPath() %>/member/passwordModify?id=${userid}" 
 								class="list-group-item">비밀번호 변경</a> 
 							<c:choose>
@@ -73,10 +77,9 @@ body {
 									<a href="<%=request.getContextPath() %>/member/registerDelete?id=${userid}" 
 										class="list-group-item">회원탈퇴</a>
 								</c:otherwise>
-							</c:choose>	
+							</c:choose>
 						</c:otherwise>
 					</c:choose>
-					
 				</div>
 			</div>
 			<!-- /.col-lg-3 -->

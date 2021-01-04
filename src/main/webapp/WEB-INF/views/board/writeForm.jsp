@@ -35,7 +35,7 @@
 	        $('#preview').attr('src', e.target.result);
           }
       }
-  }  
+  }
 </script>
 <title>글쓰기창</title>
 </head>
@@ -116,6 +116,7 @@
                 </div>
               </div>
             </form>
+            
             <h3 class="h4 mb-4 d-flex align-items-center"><span>Comments</span><span class="text-small ml-3 text-gray">- 3 Comments</span></h3>
             <ul class="list-unstyled comments">
               <li>

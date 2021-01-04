@@ -89,7 +89,7 @@
 		<!-- Navbar 1 -->
 		<nav class="navbar navbar-expand-lg navbar-light bg-white py-4">
 			<div class="container text-center">
-				<a class="navbar-brand mx-auto" href="index.html"><img
+				<a class="navbar-brand mx-auto" href="/team/"><img
 					class="mb-2" src="/team/resources/img/logo.svg" alt="" width="140">
 					<p class="text-small text-uppercase text-gray mb-0">당신의 단 하나뿐인
 						여행 가이드</p></a>

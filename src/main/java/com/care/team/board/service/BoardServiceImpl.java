@@ -16,8 +16,10 @@ import com.care.team.board.dao.BoardDAO;
 
 @Service
 public class BoardServiceImpl implements BoarderService{
+	
 	@Autowired BoardDAO dao;
 	@Autowired BoardFileService bfs;
+	
 	@Override
 	public void selectAllBoardList(Model model,int num) {
 		int pageLetter = 3;//한페이지에 3개의 글씩
@@ -31,6 +33,7 @@ public class BoardServiceImpl implements BoarderService{
 		model.addAttribute("repeat",repeat);
 		model.addAttribute("boardList",dao.selectAllBoardList(start, end));
 	}
+	
 	public String writeSave(MultipartHttpServletRequest multipartRequest) throws Exception  {
 		Map<String, Object> writeMap = bfs.getData(multipartRequest);
 		int result = -1;
@@ -43,6 +46,7 @@ public class BoardServiceImpl implements BoarderService{
 		}
 		return bfs.getMessage(result,write_no,writeMap.get("image_file_name").toString());
 	}
+	
 	@Transactional
 	public void contentView(int write_no, Model model) {
 		try {
@@ -53,9 +57,11 @@ public class BoardServiceImpl implements BoarderService{
 			e.printStackTrace();
 		}
 	}
+	
 	private void upHit(int write_no) {
 		dao.upHit(write_no);
 	}
+	
 	public String modify(MultipartHttpServletRequest multipartRequest)throws Exception{
 		Map<String, Object> writeMap = bfs.getData(multipartRequest);
 		int write_no = (Integer.parseInt(writeMap.get("write_no").toString()));
