@@ -2,6 +2,8 @@ package com.care.team.member.service;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -73,9 +75,9 @@ public class RegisterServiceImpl implements RegisterService{
 	
 	@Transactional
 	@Override
-	public void userDelete(String userId) {
+	public void userDelete(String userId, String Path) {
 		try {
-			rfs.userDirdelete(userId);
+			rfs.userDirdelete(userId, Path);
 			dao.userDelete(userId);
 		} catch (Exception e) {
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
@@ -88,8 +90,10 @@ public class RegisterServiceImpl implements RegisterService{
 		
 		//기존 profile_img가지고 오기
 		String profile_Name = dao.getProfile_Img(userId);
+		//업로드할 경로
+		String Path = multipart.getSession().getServletContext().getRealPath("/resources/profile");		
 		
-		Map<String, Object> profileMap = rfs.profileData(multipart,userId);
+		Map<String, Object> profileMap = rfs.profileData(multipart, userId, Path);
 		String message = "";
 		int result = -1;
 		try {
@@ -97,20 +101,22 @@ public class RegisterServiceImpl implements RegisterService{
 			if(profile_Name.isEmpty()) {
 				profile_Name = "없음";
 			}
-			System.out.println("기존 파일명 : "+profile_Name);
+			//System.out.println("기존 파일명 : "+profile_Name);
 			
-			if(profileMap.get("profileName").toString().equals("확장자오류")) {
+			String reProfileName = profileMap.get("profileName").toString();
+			
+			if(reProfileName.equals("확장자오류")) {
 				
 				message = "<script>";
-				message += "alert('확장자는 .jsp,.gif,.png만 가능합니다.');";
+				message += "alert('확장자는 .jpg,.gif,.png만 가능합니다.');";
 				message += "location.href='profile?id="+userId+"';";
 				message += "</script>";
 			}else {
 				result = dao.userProfile(profileMap);
-				System.out.println("result : "+result);
-				
+				//System.out.println("result : "+result);
+
 				message = 
-					rfs.getMessage(result,userId,profileMap.get("profileName").toString(),profile_Name);
+					rfs.getMessage(result,userId,reProfileName,profile_Name,Path);
 					
 			}
 

@@ -18,10 +18,6 @@
 <link rel="shortcut icon" href="#">
 
 <style type="text/css">
-#content{
-	margin-top: 10%;
-	margin-bottom: 5%;
-}
 h1{
 	text-align: center;
 }

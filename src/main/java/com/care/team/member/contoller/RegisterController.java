@@ -204,9 +204,14 @@ public class RegisterController {
 	
 	//회원탈퇴
 	@RequestMapping("userdelete")
-	public String userDelete(@RequestParam("id") String userId,
+	public String userDelete(HttpServletRequest request,
 			HttpSession session) {
-		rs.userDelete(userId);
+		
+		String userId = request.getParameter("id");
+		String Path = 
+			request.getSession().getServletContext().getRealPath("/resources/profile");
+		
+		rs.userDelete(userId, Path);
 		session.invalidate();
 		return "redirect:/login";
 	}

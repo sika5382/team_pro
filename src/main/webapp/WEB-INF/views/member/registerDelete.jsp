@@ -18,21 +18,10 @@
 	rel="stylesheet">
 <!-- Custom styles for this template -->
 <link
-	href="<%=request.getContextPath()%>/resources/css/shop-homepage.css"
-	rel="stylesheet">
+	href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
 
 <title>내정보관리</title>
-
-<style>
-body {
-	padding-top: 56px;
-}
-
-#main {
-	margin-top: 2%;
-	margin-bottom: 3%;
-}
-</style>
 <script type="text/javascript">
 		function Delete(){
 			var confirmflag = confirm("정말로 회원을 탈퇴하시겠습니까?");

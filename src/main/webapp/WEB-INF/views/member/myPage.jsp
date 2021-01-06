@@ -5,7 +5,7 @@
 <html>
 <head>
 
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
@@ -17,27 +17,16 @@
 <link
 	href="<%=request.getContextPath()%>/resources/vendor/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet">
-<!-- Custom styles for this template -->
-<link
-	href="<%=request.getContextPath()%>/resources/css/shop-homepage.css"
-	rel="stylesheet">
-
+<!-- theme stylesheet-->
+<link rel="stylesheet" href="/team/resources/css/style.default.css"
+	id="theme-stylesheet">
+<!-- Custom stylesheet - for your changes-->
+<link rel="stylesheet" href="/resources/css/custom.css">
 <!-- js파일 삽입 -->
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/resources/js/myRegister.js"></script>
 
 <title>내정보관리</title>
-
-<style>
-body {
-	padding-top: 56px;
-}
-
-#main {
-	margin-top: 2%;
-	margin-bottom: 3%;
-}
-</style>
 
 </head>
 
@@ -46,7 +35,7 @@ body {
 	<%@ include file="/WEB-INF/views/default/header.jsp"%>
 
 	<!-- Page Content -->
-	<div class="container" id="main">
+	<div class="container">
 		<h1>내정보</h1>
 		<hr>
 		<div class="row">
@@ -68,7 +57,7 @@ body {
 										<div class="col-md-6">
 											<input type="hidden" id="user_id" class="form-control"
 												name="id" value="${userInfo.id }"> 
-											<label class="col-md-4 col-form-label text-md-left">
+											<label class="col-md-6 col-form-label text-md-left">
 												${userInfo.id } </label>
 
 										</div>

@@ -24,18 +24,6 @@
 	rel="stylesheet">
 
 <title>내정보관리</title>
-
-<style>
-body {
-	padding-top: 56px;
-}
-
-#main {
-	margin-top: 2%;
-	margin-bottom: 3%;
-}
-</style>
-
 </head>
 
 <body>

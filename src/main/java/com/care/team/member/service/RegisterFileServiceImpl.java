@@ -17,11 +17,12 @@ import com.care.team.member.data.RegisterDAO;
 public class RegisterFileServiceImpl implements RegisterFileService{
 	
 	@Autowired RegisterDAO dao;
+
+	//final String Path = 
+	//	"D:\\java_home\\TeamProject_CC\\team\\src\\main\\webapp\\resources\\profile";
 	
-	private final String Path = 
-		"D:\\java_home\\TeamProject_CC\\team\\src\\main\\webapp\\resources\\profile";
-	
-	public Map<String, Object> profileData(MultipartHttpServletRequest multipart, String userId) {
+	public Map<String, Object> profileData(
+		MultipartHttpServletRequest multipart, String userId, String Path) {
 		
 		try {
 			multipart.setCharacterEncoding("UTF-8");
@@ -34,18 +35,19 @@ public class RegisterFileServiceImpl implements RegisterFileService{
 		while(enu.hasMoreElements()) { 
 			String name = (String)enu.nextElement();
 			String value = multipart.getParameter(name);
-			System.out.println(name + " : " + value);
+			//System.out.println(name + " : " + value);
 			profileMap.put(name, value);
 		}
 		
-		String profileName = profileUpload(multipart, userId);
-		System.out.println("profileName : "+profileName);
+		String profileName = profileUpload(multipart, userId, Path);
+		//System.out.println("profileName : "+profileName);
 		
 		profileMap.put("profileName",profileName);
 		return profileMap;
 	}
 	
-	private String profileUpload(MultipartHttpServletRequest multipart, String userId) {
+	private String profileUpload(
+		MultipartHttpServletRequest multipart, String userId, String Path) {
 		
 		MultipartFile imgFile = multipart.getFile("profile_img");
 		
@@ -54,11 +56,13 @@ public class RegisterFileServiceImpl implements RegisterFileService{
 		String extension = originalFilename.substring(originalFilename.indexOf(".")); //.jpg 확장자
 		String profileName = onlyFileName + "_" + multipart.getParameter("id") + extension; // fileName_id.jpg   
 		
-		System.out.println("<----- 변경하는 이미지파일 ----->");
-		System.out.println("originalFilename : "+originalFilename);
-		System.out.println("onlyFileName : "+onlyFileName);
-		System.out.println("extension : "+extension);
-		System.out.println("profileName : "+profileName);
+		//System.out.println("<----- 변경하는 이미지파일 ----->");
+		//System.out.println("originalFilename : "+originalFilename);
+		//System.out.println("onlyFileName : "+onlyFileName);
+		//System.out.println("extension : "+extension);
+		//System.out.println("profileName : "+profileName);
+		
+		System.out.println(Path);
 		
 	    File file = new File(Path);
 	    if(!file.exists()) {
@@ -69,8 +73,8 @@ public class RegisterFileServiceImpl implements RegisterFileService{
 		    	
 		    	String profile = dao.getProfile_Img(userId);
 		    	
-		    	System.out.println("<----- 기존파일명 ----->");
-		    	System.out.println("profile : "+profile);
+		    	//System.out.println("<----- 기존파일명 ----->");
+		    	//System.out.println("profile : "+profile);
 		    	
 		    	if(!profile.equals("없음") || !profile.equals("확장자오류")) {
 		    		
@@ -103,7 +107,8 @@ public class RegisterFileServiceImpl implements RegisterFileService{
 		
 	}
 
-	public String getMessage(int result, String userId, String profileName, String b_Profile) throws Exception {
+	public String getMessage(
+		int result, String userId, String profileName, String b_Profile, String Path) throws Exception {
 		String message = null;
 		if(result != -1) {
 			if(b_Profile.equals(profileName)) {
@@ -153,7 +158,7 @@ public class RegisterFileServiceImpl implements RegisterFileService{
 	}
 
 	@Override
-	public void userDirdelete(String userId) {
+	public void userDirdelete(String userId, String Path) {
 		File folder = new File(Path+"\\"+userId);
 		try {
 		    while(folder.exists()) {
@@ -162,18 +167,17 @@ public class RegisterFileServiceImpl implements RegisterFileService{
 					
 			for (int j = 0; j < folder_list.length; j++) {
 				folder_list[j].delete(); //파일 삭제 
-				System.out.println("파일이 삭제되었습니다.");		
+				//System.out.println("파일이 삭제되었습니다.");		
 			}
 					
 			if(folder_list.length == 0 && folder.isDirectory()){ 
 				folder.delete(); //대상폴더 삭제
-				System.out.println("폴더가 삭제되었습니다.");
+				//System.out.println("폴더가 삭제되었습니다.");
 			}
 	            }
 		 } catch (Exception e) {
 			e.printStackTrace();
-		}
-		
+		 }
 	}
 
 }

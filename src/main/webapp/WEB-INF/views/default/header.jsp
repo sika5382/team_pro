@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-
-
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>당신을 위한 여행</title>
 <meta name="description" content="">

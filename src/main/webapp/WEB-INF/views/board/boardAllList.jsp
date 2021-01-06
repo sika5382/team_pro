@@ -62,9 +62,7 @@
           <div class="col-lg-8">
             <div class="row text-center">
             
-            	<!-- 업로드 한 게시물 올라오는 부분  -->
-            <div>
-           
+            	<!-- 업로드 한 게시물 올라오는 부분  -->           
 			<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 			
 				<c:if test="${boardList.size() == 0 }">
@@ -99,10 +97,7 @@
             
 				</div>
 				</c:forEach>
-				
-				
-				
-			</div>
+		
               <div class="col-lg-6 mb-5"><a href="post.html"><img class="img-fluid mb-4" src="/team/resources/img/listing-tnumbnail-3.jpg" alt=""/></a>
                 <ul class="list-inline small text-uppercase mb-0">
                   <li class="list-inline-item mr-0 text-gray align-middle">By </li>
@@ -289,6 +284,7 @@
                     <div class="overlay-content"><img class="img-fluid" src="/team/resources/img/instagram-1.jpg" alt=""></div></a></div>
               </div>
             </div>
+            <!-- /.mb-5 -->
           </div>
         </div>
       </div>

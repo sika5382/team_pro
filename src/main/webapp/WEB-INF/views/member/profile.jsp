@@ -19,20 +19,12 @@
 	rel="stylesheet">
 <!-- Custom styles for this template -->
 <link
-	href="<%=request.getContextPath()%>/resources/css/shop-homepage.css"
-	rel="stylesheet">
+	href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
 
 <title>내정보관리</title>
 
 <style>
-body {
-	padding-top: 56px;
-}
-
-#main {
-	margin-top: 2%;
-	margin-bottom: 3%;
-}
 
 .btn-file{
 	position: relative;
@@ -70,7 +62,7 @@ body {
 		
 			<%@ include file="/WEB-INF/views/default/kategorie.jsp"%>
 
-			<div class="col-lg-9">
+			<div class="col-lg-9" >
 				<div class="row justify-content-center">
 					<div class="col-lg-8">
 						<div class="card">
@@ -85,7 +77,7 @@ body {
 										<div class="col-md-6">
 											<input type="hidden" id="user_id" class="form-control"
 												name="id" value="${userInfo.id }"> 
-											<label class="col-md-4 col-form-label text-md-left">
+											<label class="col-md-6 col-form-label text-md-left">
 												${userInfo.id } </label>
 
 										</div>
@@ -105,18 +97,18 @@ body {
 										</div>
 									</div>
 
-
 									<!-- submit 및 reset 버튼 -->
 									<div class="col-md-6 offset-md-4">
 										<button type="submit" class="btn btn-primary" 
 											id="btn_submit">등록</button>
 									</div>
-									
 								</form>
 							</div>
 						</div>
 					</div>
+					<!-- /.col-lg-8 -->
 				</div>
+				<br><br>
 			</div>
 			<!-- </.col-lg-9> -->
 		</div>

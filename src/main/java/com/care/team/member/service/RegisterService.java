@@ -13,7 +13,7 @@ public interface RegisterService {
 	public void modifyCheck(MemberDTO member); //내정보 수정
 	public String passwordChk(String userId); //비밀번호 호출
 	public void pwdModify(MemberDTO dto); //비밀번호 변경
-	public void userDelete(String userId); //회원삭제	
+	public void userDelete(String userId, String path); //회원삭제	
 	public String userProfile(
 			MultipartHttpServletRequest multipart, String userid) throws Exception; //이미지변경
 	

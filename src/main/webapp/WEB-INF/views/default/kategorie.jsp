@@ -23,18 +23,6 @@
 	rel="stylesheet">
 
 <title>Kategorie</title>
-
-<style>
-body {
-	padding-top: 56px;
-}
-
-#main {
-	margin-top: 2%;
-	margin-bottom: 3%;
-}
-</style>
-
 </head>
 
 <body>
