@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -23,7 +22,23 @@
 	href="<%=request.getContextPath()%>/resources/css/shop-homepage.css"
 	rel="stylesheet">
 
+<!-- js파일 삽입 -->
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/resources/js/myRegister.js"></script>
+
 <title>내정보관리</title>
+
+<style>
+body {
+	padding-top: 56px;
+}
+
+#main {
+	margin-top: 2%;
+	margin-bottom: 3%;
+}
+</style>
+
 </head>
 
 <body>
@@ -35,46 +50,24 @@
 		<h1>내정보</h1>
 		<hr>
 		<div class="row">
-			
 			<%@ include file="/WEB-INF/views/default/kategorie.jsp"%>
-
+			
 			<div class="col-lg-9">
 				<div class="row justify-content-center">
 					<div class="col-lg-8">
 						<div class="card">
-							<div class="card-header">본인 확인 절차</div>
+							<div class="card-header">내가 쓴 글</div>
 							<div class="card-body">
-								<form action="identification" method="post">
-								
-									<!-- userID 수정불가 설정-->
-									<div class="form-group row">
-										<label for="user_id"
-											class="col-md-4 col-form-label text-md-right"> 아이디 </label>
-										<div class="col-md-6">
-											<input type="hidden" id="userid" class="form-control"
-												name="userid" value="${userInfo.id }"> 
-											<label class="col-md-6 col-form-label text-md-left">
-												${userInfo.id } </label>
-										</div>
-									</div>
-									
-									<!-- password -->
-									<div class="form-group row">
-										<label for="pwd"
-											class="col-md-4 col-form-label text-md-right"> 비밀번호
-											입력 </label>
-										<div class="col-md-6">
-											<input type="password" id="userpwd" class="form-control"
-												name="userpwd">
-										</div>
-									</div>
-									
-									<!-- submit 및 reset 버튼 -->
-									<div class="col-md-6 offset-md-4">
-										<button type="submit" class="btn btn-primary"
-											id="btn_submit">본인 인증</button>
-									</div>
-								</form>
+								<table border="1">
+									<tr><th>번호</th><th>차박장소</th><th>작성일시</th></tr>
+									<c:forEach items="${myContentList }" var="dto">
+										<tr>
+											<td>${dto.rn }</td>
+											<td><a href="<%=request.getContextPath() %>/board/contentView?write_no=${dto.write_no}">${dto.place_name }</a></td>
+											<td>${dto.savedate }</td>
+										</tr>
+									</c:forEach>
+								</table>
 							</div>
 						</div>
 					</div>
@@ -95,7 +88,4 @@
 		src="<%=request.getContextPath()%>/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 
-</html>
-	
-</body>
 </html>

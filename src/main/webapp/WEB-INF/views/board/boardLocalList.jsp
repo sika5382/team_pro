@@ -11,19 +11,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
     <!-- Bootstrap CSS-->
-    <link rel="stylesheet" href="/resources/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/team/resources/vendor/bootstrap/css/bootstrap.min.css">
     <!-- Owl Carousel -->
-    <link rel="stylesheet" href="/resources/vendor/owl.carousel2/assets/owl.carousel.min.css">
-    <link rel="stylesheet" href="/resources/vendor/owl.carousel2/assets/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/team/resources/vendor/owl.carousel2/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="/team/resources/vendor/owl.carousel2/assets/owl.theme.default.min.css">
     <!-- Google fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:300,400&amp;display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap">
     <!-- theme stylesheet-->
-    <link rel="stylesheet" href="/resources/css/style.default.css" id="theme-stylesheet">
+    <link rel="stylesheet" href="/team/resources/css/style.default.css" id="theme-stylesheet">
     <!-- Custom stylesheet - for your changes-->
-    <link rel="stylesheet" href="/resources/css/custom.css">
+    <link rel="stylesheet" href="/team/resources/css/custom.css">
     <!-- Favicon-->
-    <link rel="shortcut icon" href="/resources/img/favicon.png">
+    <link rel="shortcut icon" href="/team/resources/img/favicon.png">
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
@@ -45,7 +45,7 @@
    <c:import url="../default/header.jsp"/>
    
     <!-- Hero section -->
-    <section class="hero bg-center bg-cover" style="background: url(/resources/img/hero-banner.jpg)">
+    <section class="hero bg-center bg-cover" style="background: url(/team/resources/img/hero-banner.jpg)">
       <div class="dark-overlay py-5">
         <div class="overlay-content">
           <div class="container py-5 text-white text-center">
@@ -55,7 +55,6 @@
         </div>
       </div>
     </section>
-    
     <!-- Blog listing -->
     <section class="pt-5">
       <div class="container pt-5">
@@ -63,40 +62,121 @@
           <div class="col-lg-8">
             <div class="row text-center">
            
-     <!-- 업로드 한 게시물 올라오는 부분  -->
-        		<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+            	<!-- 업로드 한 게시물 올라오는 부분  -->
+         
+			<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 			
-				<c:if test="${boardList.size() == 0 }">
+				<c:if test="${localBoard.size() == 0 }">
 					<h3>등록된 글이 없습니다.</h3>
 				</c:if>
 				
-				<c:forEach items="${boardList}" var="dto">
-					<div class="col-lg-6 mb-5">
-						<a href="${contextPath }/board/contentView?write_no=${dto.write_no}">
-						<img class="img-fluid mb-4" id="preview" 
-							src="${contextPath}/board/download?write_no=${dto.write_no}&image_file_name=${dto.image_file_name}" alt="이미지 없음"></a>		
-						<ul class="list-inline small text-uppercase mb-0">
-							<li class="list-inline-item align-middle mr-0"><a class="font-weight-bold reset-anchor" href="#">No. ${dto.write_no}</a></li>	
-							<li class="list-inline-item mr-0 text-gray align-middle">By ${dto.nickname }</li>
-							<li class="list-inline-item text-gray align-middle">${dto.savedate }</li>	
-						</ul>
-						<h3 class="h4 mt-2"><a class="reset-anchor" href="${contextPath }/board/contentView?write_no=${dto.write_no}">${dto.place_name}</a></h3>
-						<a class="reset-anchor text-gray text-uppercase small mb-2 d-block" href="#">Travel guide</a>
-     	          		<p class="text-small mb-1">${dto.review }</p><a class="btn btn-link" href="index.html">Continue reading</a>
-            		</div>
-				</c:forEach>	
-							              
+				<c:forEach items="${localBoard}" var="dto">
+				
+				<div class="col-lg-6 mb-5">
+					<a href="${contextPath }/board/contentView?write_no=${dto.write_no}">
+					<img class="img-fluid mb-4" id="preview" src=
+								"${contextPath}/board/download?write_no=${dto.write_no}&image_file_name=${dto.image_file_name}" alt="이미지 없음"></a>		
+					<ul class="list-inline small text-uppercase mb-0">
+					 	<li class="list-inline-item align-middle mr-0"><a class="font-weight-bold reset-anchor" href="#">No. ${dto.write_no}</a></li>	
+						 <li class="list-inline-item mr-0 text-gray align-middle">By ${dto.nickname }</li>
+						 <li class="list-inline-item text-gray align-middle">${dto.savedate }</li>	
+					</ul>
+					  <h3 class="h4 mt-2"> <a class="reset-anchor" href="${contextPath }/board/contentView?write_no=${dto.write_no}">${dto.place_name}</a></h3><a class="reset-anchor text-gray text-uppercase small mb-2 d-block" href="#">Travel guide</a>
+               		 <p class="text-small mb-1">${dto.review }</p><a class="btn btn-link" href="index.html">Continue reading</a>
+            
+				</div>
+				</c:forEach>				
+				
+              <div class="col-lg-6 mb-5"><a href="post.html"><img class="img-fluid mb-4" src="/team/resources/img/listing-tnumbnail-3.jpg" alt=""/></a>
+                <ul class="list-inline small text-uppercase mb-0">
+                  <li class="list-inline-item mr-0 text-gray align-middle">By </li>
+                  <li class="list-inline-item align-middle mr-0"><a class="font-weight-bold reset-anchor" href="#">Jimmy Roy</a></li>
+                  <li class="list-inline-item text-gray align-middle mr-0">|</li>
+                  <li class="list-inline-item text-gray align-middle">22 Mar 2018</li>
+                </ul>
+                <h3 class="h4 mt-2"> <a class="reset-anchor" href="post.html">Guide to best markets</a></h3><a class="reset-anchor text-gray text-uppercase small mb-2 d-block" href="#">Travel guide</a>
+                <p class="text-small mb-1">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore.</p><a class="btn btn-link" href="index.html">Continue reading</a>
+            
+              </div>
+              
+              
+              <div class="col-lg-6 mb-5"><a href="post.html"><img class="img-fluid mb-4" src="/team/resources/img/listing-tnumbnail-4.jpg" alt=""/></a>
+                <ul class="list-inline small text-uppercase mb-0">
+                  <li class="list-inline-item mr-0 text-gray align-middle">By </li>
+                  <li class="list-inline-item align-middle mr-0"><a class="font-weight-bold reset-anchor" href="#">Jason Doe</a></li>
+                  <li class="list-inline-item text-gray align-middle mr-0">|</li>
+                  <li class="list-inline-item text-gray align-middle">22 Mar 2018</li>
+                </ul>
+                <h3 class="h4 mt-2"> <a class="reset-anchor" href="post.html">A day in Tailand</a></h3><a class="reset-anchor text-gray text-uppercase small mb-2 d-block" href="#">Travel guide</a>
+                <p class="text-small mb-1">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore.</p><a class="btn btn-link" href="index.html">Continue reading</a>
+              </div>
+              <div class="col-lg-6 mb-5"><a href="post.html"><img class="img-fluid mb-4" src="/team/resources/img/listing-tnumbnail-1.jpg" alt=""/></a>
+                <ul class="list-inline small text-uppercase mb-0">
+                  <li class="list-inline-item mr-0 text-gray align-middle">By </li>
+                  <li class="list-inline-item align-middle mr-0"><a class="font-weight-bold reset-anchor" href="#">Jimmy Roy</a></li>
+                  <li class="list-inline-item text-gray align-middle mr-0">|</li>
+                  <li class="list-inline-item text-gray align-middle">22 Mar 2018</li>
+                </ul>
+                <h3 class="h4 mt-2"> <a class="reset-anchor" href="post.html">The complete travel guide</a></h3><a class="reset-anchor text-gray text-uppercase small mb-2 d-block" href="#">Travel guide</a>
+                <p class="text-small mb-1">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore.</p><a class="btn btn-link" href="index.html">Continue reading</a>
+              </div>
+              <div class="col-lg-6 mb-5"><a href="post.html"><img class="img-fluid mb-4" src="/team/resources/img/listing-tnumbnail-2.jpg" alt=""/></a>
+                <ul class="list-inline small text-uppercase mb-0">
+                  <li class="list-inline-item mr-0 text-gray align-middle">By </li>
+                  <li class="list-inline-item align-middle mr-0"><a class="font-weight-bold reset-anchor" href="#">Jason Doe</a></li>
+                  <li class="list-inline-item text-gray align-middle mr-0">|</li>
+                  <li class="list-inline-item text-gray align-middle">22 Mar 2018</li>
+                </ul>
+                <h3 class="h4 mt-2"> <a class="reset-anchor" href="post.html">The top climbing tours</a></h3><a class="reset-anchor text-gray text-uppercase small mb-2 d-block" href="#">Travel guide</a>
+                <p class="text-small mb-1">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore.</p><a class="btn btn-link" href="index.html">Continue reading</a>
+              </div>
+              <div class="col-lg-6 mb-5"><a href="post.html"><img class="img-fluid mb-4" src="/team/resources/img/listing-tnumbnail-5.jpg" alt=""/></a>
+                <ul class="list-inline small text-uppercase mb-0">
+                  <li class="list-inline-item mr-0 text-gray align-middle">By </li>
+                  <li class="list-inline-item align-middle mr-0"><a class="font-weight-bold reset-anchor" href="#">Jimmy Roy</a></li>
+                  <li class="list-inline-item text-gray align-middle mr-0">|</li>
+                  <li class="list-inline-item text-gray align-middle">22 Mar 2018</li>
+                </ul>
+                <h3 class="h4 mt-2"> <a class="reset-anchor" href="post.html">Travel guide to Canada</a></h3><a class="reset-anchor text-gray text-uppercase small mb-2 d-block" href="#">Travel guide</a>
+                <p class="text-small mb-1">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore.</p><a class="btn btn-link" href="index.html">Continue reading</a>
+              </div>
+              <div class="col-lg-6 mb-5"><a href="post.html"><img class="img-fluid mb-4" src="/team/resources/img/listing-tnumbnail-6.jpg" alt=""/></a>
+                <ul class="list-inline small text-uppercase mb-0">
+                  <li class="list-inline-item mr-0 text-gray align-middle">By </li>
+                  <li class="list-inline-item align-middle mr-0"><a class="font-weight-bold reset-anchor" href="#">Jason Doe</a></li>
+                  <li class="list-inline-item text-gray align-middle mr-0">|</li>
+                  <li class="list-inline-item text-gray align-middle">22 Mar 2018</li>
+                </ul>
+                <h3 class="h4 mt-2"> <a class="reset-anchor" href="post.html">Guide to best markets</a></h3><a class="reset-anchor text-gray text-uppercase small mb-2 d-block" href="#">Travel guide</a>
+                <p class="text-small mb-1">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore.</p><a class="btn btn-link" href="index.html">Continue reading</a>
+              </div>
+              <div class="col-lg-6 mb-5"><a href="post.html"><img class="img-fluid mb-4" src="/team/resources/img/listing-tnumbnail-3.jpg" alt=""/></a>
+                <ul class="list-inline small text-uppercase mb-0">
+                  <li class="list-inline-item mr-0 text-gray align-middle">By </li>
+                  <li class="list-inline-item align-middle mr-0"><a class="font-weight-bold reset-anchor" href="#">Jimmy Roy</a></li>
+                  <li class="list-inline-item text-gray align-middle mr-0">|</li>
+                  <li class="list-inline-item text-gray align-middle">22 Mar 2018</li>
+                </ul>
+                <h3 class="h4 mt-2"> <a class="reset-anchor" href="post.html">Guide to best markets</a></h3><a class="reset-anchor text-gray text-uppercase small mb-2 d-block" href="#">Travel guide</a>
+                <p class="text-small mb-1">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore.</p><a class="btn btn-link" href="index.html">Continue reading</a>
+              </div>
+              <div class="col-lg-6 mb-5"><a href="post.html"><img class="img-fluid mb-4" src="/team/resources/img/listing-tnumbnail-4.jpg" alt=""/></a>
+                <ul class="list-inline small text-uppercase mb-0">
+                  <li class="list-inline-item mr-0 text-gray align-middle">By </li>
+                  <li class="list-inline-item align-middle mr-0"><a class="font-weight-bold reset-anchor" href="#">Jimmy Roy</a></li>
+                  <li class="list-inline-item text-gray align-middle mr-0">|</li>
+                  <li class="list-inline-item text-gray align-middle">22 Mar 2018</li>
+                </ul>
+                <h3 class="h4 mt-2"> <a class="reset-anchor" href="post.html">A day in Tailand</a></h3><a class="reset-anchor text-gray text-uppercase small mb-2 d-block" href="#">Travel guide</a>
+                <p class="text-small mb-1">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore.</p><a class="btn btn-link" href="index.html">Continue reading</a>
+              </div>
             </div>
             
-            <!-- Listing navigation 페이지이동용 -->
+            <!-- Listing navigation -->
             <div class="p-4 bg-light mb-5">
               <div class="row">
-                <div class="col-sm-6 text-center text-sm-left mb-2 mb-sm-0">
-                	<a class="btn btn-outline-secondary btn-sm" href="/team/board/boardAllList?num=${num-1}">
-                		<i class="fas fa-angle-left mr-2"></i>Prev posts</a></div>
-                <div class="col-sm-6 text-center text-sm-right text-right">
-                	<a class="btn btn-outline-secondary btn-sm" href="/team/board/boardAllList?num=${num+1}">
-                		<i class="fas fa-angle-right ml-2"></i>Next posts</a></div>
+                <div class="col-sm-6 text-center text-sm-left mb-2 mb-sm-0"><a class="btn btn-outline-secondary btn-sm" href="#"><i class="fas fa-angle-left mr-2"></i>Prev posts</a></div>
+                <div class="col-sm-6 text-center text-sm-right text-right"><a class="btn btn-outline-secondary btn-sm" href="#">Next posts<i class="fas fa-angle-right ml-2"></i></a></div>
               </div>
             </div>
           </div>

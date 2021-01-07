@@ -23,6 +23,18 @@
 	rel="stylesheet">
 
 <title>Kategorie</title>
+
+<style>
+body {
+	padding-top: 56px;
+}
+
+#main {
+	margin-top: 2%;
+	margin-bottom: 3%;
+}
+</style>
+
 </head>
 
 <body>
@@ -64,14 +76,16 @@
 								class="list-group-item">회원탈퇴</a>
 						</c:otherwise>
 					</c:choose>
+					<a href="<%=request.getContextPath() %>/member/myContent?id=${userid }" 
+								class="list-group-item">내가 쓴 글</a>
+							<a href="<%=request.getContextPath() %>/member/myReview?id=${userid }" 
+								class="list-group-item">내가 쓴 리뷰</a>
 				</c:otherwise>
 			</c:choose>
 		</div>
 
 	</div>
 	<!-- /.col-lg-3 -->
-
-
 	<!-- Bootstrap core JavaScript -->
 	<script
 		src="<%=request.getContextPath()%>/resources/vendor/jquery/jquery.min.js"></script>

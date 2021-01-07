@@ -16,7 +16,7 @@
 
 <!-- js파일 삽입 -->
 <script type="text/javascript"
-	src="<%=request.getContextPath() %>/resources/js/registerForm.js"></script>
+	src="/resources/js/registerForm.js"></script>
 
 <link rel="shortcut icon" href="#">
 

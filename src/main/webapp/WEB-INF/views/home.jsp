@@ -14,24 +14,24 @@
 <meta name="robots" content="all,follow">
 <!-- Bootstrap CSS-->
 <link rel="stylesheet"
-	href="/team/resources/vendor/bootstrap/css/bootstrap.min.css">
+	href="/resources/vendor/bootstrap/css/bootstrap.min.css">
 <!-- Owl Carousel -->
 <link rel="stylesheet"
-	href="/team/resources/vendor/owl.carousel2/assets/owl.carousel.min.css">
+	href="/resources/vendor/owl.carousel2/assets/owl.carousel.min.css">
 <link rel="stylesheet"
-	href="/team/resources/vendor/owl.carousel2/assets/owl.theme.default.min.css">
+	href="/resources/vendor/owl.carousel2/assets/owl.theme.default.min.css">
 <!-- Google fonts-->
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Nunito:300,400&amp;display=swap">
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap">
 <!-- theme stylesheet-->
-<link rel="stylesheet" href="/team/resources/css/style.default.css"
+<link rel="stylesheet" href="/resources/css/style.default.css"
 	id="theme-stylesheet">
 <!-- Custom stylesheet - for your changes-->
-<link rel="stylesheet" href="/team/resources/css/custom.css">
+<link rel="stylesheet" href="/resources/css/custom.css">
 <!-- Favicon-->
-<link rel="shortcut icon" href="/team/resources/img/favicon.png">
+<link rel="shortcut icon" href="/resources/img/favicon.png">
 
 </head>
 <body>
@@ -46,7 +46,8 @@
 			<h1>한 번쯤은 가볼만한 장소</h1>
 			<p class="mb-0">내용입력</p>
 		</div>
-
+		
+		<!-- 상단 슬라이드 모션 -->
 		<div
 			class="destinations-slider owl-carousel owl-theme nav-center-custom owl-padding">
 
@@ -55,18 +56,17 @@
 				style="background: url(resources/img/travel-home-4.jpg)">
 				<div
 					class="destination-inner w-100 text-center text-white index-forward has-transition">
-					<p class="small text-uppercase mb-0">Paris</p>
-					<h2 class="h3 mb-4">France</h2>
+					<h2 class="h3 mb-4">서울</h2>
 					<div class="btn btn-primary btn-block destination-btn text-white">Discover</div>
 				</div>
 			</a>
+			
 			 <a class="destination d-flex align-items-end bg-center bg-cover"
 				href="post.html"
 				style="background: url(resources/img/travel-home-2.jpg)">
 				<div
 					class="destination-inner w-100 text-center text-white index-forward has-transition">
-					<p class="small text-uppercase mb-0">Tokyo</p>
-					<h2 class="h3 mb-4">Japan</h2>
+					<h2 class="h3 mb-4">부산</h2>
 					<div class="btn btn-primary btn-block destination-btn text-white">Discover</div>
 				</div>
 			</a> 
@@ -76,92 +76,50 @@
 				style="background: url(resources/img/travel-home-3.jpg)">
 				<div
 					class="destination-inner w-100 text-center text-white index-forward has-transition">
-					<p class="small text-uppercase mb-0">Madrid</p>
-					<h2 class="h3 mb-4">Spain</h2>
+					<h2 class="h3 mb-4">제주</h2>
 					<div class="btn btn-primary btn-block destination-btn text-white">Discover</div>
 				</div>
 			</a> 
+			
 			<a class="destination d-flex align-items-end bg-center bg-cover"
 				href="post.html"
 				style="background: url(resources/img/travel-home-1.jpg)">
 				<div
 					class="destination-inner w-100 text-center text-white index-forward has-transition">
-					<p class="small text-uppercase mb-0">Rome</p>
-					<h2 class="h3 mb-4">Italy</h2>
+					<h2 class="h3 mb-4">인천</h2>
 					<div class="btn btn-primary btn-block destination-btn text-white">Discover</div>
 				</div>
 			</a>
+			
 			<a class="destination d-flex align-items-end bg-center bg-cover"
 				href="post.html"
 				style="background: url(resources/img/travel-home-5.jpg)">
 				<div
 					class="destination-inner w-100 text-center text-white index-forward has-transition">
-					<p class="small text-uppercase mb-0">Jakarta</p>
-					<h2 class="h3 mb-4">Indonesia</h2>
+					<h2 class="h3 mb-4">강원도</h2>
 					<div class="btn btn-primary btn-block destination-btn text-white">Discover</div>
 				</div>
 			</a>
+			
 			<a class="destination d-flex align-items-end bg-center bg-cover"
-				href="post.html"
+				href="<%=request.getContextPath() %>/board/boardLocalList?local=경기"
 				style="background: url(resources/img/travel-home-6.jpg)">
 				<div
 					class="destination-inner w-100 text-center text-white index-forward has-transition">
-					<p class="small text-uppercase mb-0">Ottawa</p>
-					<h2 class="h3 mb-4">Canada</h2>
+					<h2 class="h3 mb-4">경기도</h2>
 					<div class="btn btn-primary btn-block destination-btn text-white">Discover</div>
 				</div>
 			</a>
+			
 			<a class="destination d-flex align-items-end bg-center bg-cover"
 				href="post.html"
 				style="background: url(resources/img/travel-home-7.jpg)">
 				<div
 					class="destination-inner w-100 text-center text-white index-forward has-transition">
-					<p class="small text-uppercase mb-0">Cairo</p>
-					<h2 class="h3 mb-4">Egypt</h2>
+					<h2 class="h3 mb-4">대구</h2>
 					<div class="btn btn-primary btn-block destination-btn text-white">Discover</div>
 				</div>
-			</a>
-			<a class="destination d-flex align-items-end bg-center bg-cover"
-				href="post.html"
-				style="background: url(resources/img/travel-home-4.jpg)">
-				<div
-					class="destination-inner w-100 text-center text-white index-forward has-transition">
-					<p class="small text-uppercase mb-0">Berlin</p>
-					<h2 class="h3 mb-4">Germany</h2>
-					<div class="btn btn-primary btn-block destination-btn text-white">Discover</div>
-				</div>
-			</a>
-			<a class="destination d-flex align-items-end bg-center bg-cover"
-				href="post.html"
-				style="background: url(resources/img/travel-home-2.jpg)">
-				<div
-					class="destination-inner w-100 text-center text-white index-forward has-transition">
-					<p class="small text-uppercase mb-0">Bangkok</p>
-					<h2 class="h3 mb-4">Thailand</h2>
-					<div class="btn btn-primary btn-block destination-btn text-white">Discover</div>
-				</div>
-			</a>
-			<a class="destination d-flex align-items-end bg-center bg-cover"
-				href="post.html"
-				style="background: url(resources/img/travel-home-3.jpg)">
-				<div
-					class="destination-inner w-100 text-center text-white index-forward has-transition">
-					<p class="small text-uppercase mb-0">Malé</p>
-					<h2 class="h3 mb-4">Maldives</h2>
-					<div class="btn btn-primary btn-block destination-btn text-white">Discover</div>
-				</div>
-			</a>
-			<a class="destination d-flex align-items-end bg-center bg-cover"
-				href="post.html"
-				style="background: url(resources/img/travel-home-1.jpg)">
-				<div
-					class="destination-inner w-100 text-center text-white index-forward has-transition">
-					<p class="small text-uppercase mb-0">New York</p>
-					<h2 class="h3 mb-4">United States</h2>
-					<div class="btn btn-primary btn-block destination-btn text-white">Discover</div>
-				</div>
-			</a>
-		</div>		
+			</a>	
 	</section>
 	
 	<!-- Divider Section -->
@@ -219,7 +177,7 @@
 				
 				<div class="col-lg-6 pl-lg-0 order-1 order-lg-2">
 					<a class="d-block h-100 bg-center bg-cover" href="post.html"
-						style="background: url(resources/img/travel-home-divider.jpg)"></a>
+						style="background: url(/resources/img/travel-home-divider.jpg)"></a>
 				</div>
 				
 			</div>

@@ -6,6 +6,32 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Travel | Bootstrap blog</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="/team/resources/vendor/bootstrap/css/bootstrap.min.css">
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="/team/resources/vendor/owl.carousel2/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="/team/resources/vendor/owl.carousel2/assets/owl.theme.default.min.css">
+    <!-- Google fonts-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:300,400&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="/team/resources/css/style.default.css" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="/team/resources/css/custom.css">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="/team/resources/img/favicon.png">
+    <!-- Tweaks for older IEs--><!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+     <!-- map style -->
+     <link rel="stylesheet" href="/team/resources/css/map.css">   
 <title>Insert title here</title>
 <style type="text/css">
 	.trb { background-color:#FF9933; }
@@ -17,6 +43,8 @@
 			document.getElementById("i_title").disabled=false;
 			document.getElementById("i_content").disabled=false;
 			document.getElementById("i_imageFileName").disabled=false;
+		}else{
+			document.getElementById("modi_wrap").style.display = "none";			
 		}
 	}
 	function readURL(input) {
@@ -52,72 +80,83 @@
 			},error:function(){ alert("문제가 발생했습니다.") }
 		})
 	}
+	function deleteContent(){
+		console.log("delete content");
+		if(confirm("글을 삭제하시겠습니까?")){
+			location.href="${contextPath}/board/boardDelete?write_no=${contentView.write_no}";
+		}
+	}
 </script>
 </head>
-<body onload="userCheck('${userId}','${contentView.id}'),replyData('${contentView.write_no }')">
-
-<c:import url="../default/header.jsp"/>
-
-	<form method="post" action="${contextPath}/board/modify" enctype="multipart/form-data">
-		<table border=1 align="center">
-			<tr>
-				<td width=150 align="center" class="trb">글번호</td>
-				<td>
-					<input type="text" name="write_no" value="${contentView.write_no }" disabled>
-					<input type="hidden" name="write_no" value="${contentView.write_no}">
-				</td>
-			</tr>
-			<tr>
-				<td align="center" class="trb">작성자 아이디</td>
-				<td> <input type=text value="${contentView.id }" name="id" disabled> </td>
-			</tr>
-			<tr>
-				<td align="center"  class="trb">제목</td>
-				<td><input type=text value="${contentView.title }" name="title"	id="i_title" disabled /></td>
-			</tr>
-			<tr>
-				<td align="center"  class="trb">내용</td>
-				<td><textarea rows="20" cols="60" name="content" 
-						id="i_content" disabled >${contentView.content }</textarea>
-					<div id="reply"></div>
-				</td>
-			</tr>
-			<tr>
-				<td height="50" align="center" class="trb">이미지</td>
-				<td>
-					<input type="hidden" name="originalFileName" value="${contentView.image_file_name }">
-					<input type="file" name="image_file_name " id="i_imageFileName" disabled onchange="readURL(this);" >
-					<c:choose>
-						<c:when test="${not empty contentView.image_file_name && contentView.image_file_name != 'null' }">
-							<img width="50px;" id="preview" src=
-		"${contextPath}/board/download?write_no=${contentView.write_no}&image_file_name=${contentView.image_file_name}" >
-						</c:when>
-						<c:otherwise>
-							<img width="50px;" id="preview" ><br> 
-						</c:otherwise>
-					</c:choose>			
-				</td>
-			</tr>	
-			<tr>
-				<td align="center"  class="trb">등록일자</td>
-				<td><input type=text value="${contentView.savedate}" disabled></td>
-			</tr>
-			<tr>
-				<td colspan="2" align="center"><!-- 로그인 유저와 글 작성 아이디가 같다면 수정 삭제 보여줌  -->
-					<c:if test="${userId == contentView.id }">
-						<input type="submit" value="수정하기">  
-						<input type=button value="삭제하기" onclick=
-							"location.href='${contextPath}/board/boardDelete?write_no=${contentView.write_no}'">
-					</c:if>
-					<input type=button value="답글쓰기" onclick=
-						"location.href='boardReplyView?write_no=${contentView.write_no}'">
-					<input type=button value="리스트로 돌아가기" onClick="location.href='${contextPath}/board/boardAllList'"> 
-				</td>
-			</tr>
-		</table>
-	</form>
+<body onload="userCheck('<%=session.getAttribute("userid") %>','${contentView.id}'),replyData('${contentView.write_no }'), setPlace('${contentView.place_addr }')">
+<%@ include file="/WEB-INF/views/default/header.jsp"%>
+	<div class="col-lg-6 mb-5" style=" margin:0 auto;" >
+		<!-- 수정, 삭제 버튼 -->
+		<div id="modi_wrap">		
+			<a class="reset-anchor text-small" href="${contextPath }/board/modifyForm?write_no=${contentView.write_no}"><i class="fas fa-share mr-2 text-primary"></i><strong>수정</strong></a>
+        	<a id="dt" class="reset-anchor text-small" href="#" onclick="deleteContent()"><i class="fas fa-share mr-2 text-primary"></i><strong>삭제</strong></a>
+		</div>
+		<!-- map 영역 -->
+		<div class="input_wrap" style="margin: 5px 5px 15px 5px;">
+			<div class="map_wrap">
+				<div id="map" style="width: 100%; height: 100%; position: relative; overflow: hidden; margin-top: 20px; align: center;"></div>
+			</div>			
+		</div>
+		<ul class="list-inline small text-uppercase mb-0">
+			 <li class="list-inline-item align-middle mr-0"><a class="font-weight-bold reset-anchor" href="#">No. ${contentView.write_no}</a></li>	
+			 <li class="list-inline-item mr-0 text-gray align-middle">By ${contentView.nickname }</li><br>
+			 <li class="list-inline-item text-gray align-middle">Date ${contentView.savedate }</li>	
+		</ul>
+		<h3 class="h3 mt-2" id="site_name">${contentView.place_name}</h3>
+			<span id="addr">${contentView.place_addr }</span><br>
+			<span>비용 : ${contentView.price }</span><br>
+			<span>기타 편의시설 : ${contentView.place_etc }</span><br>
+			<span>후기<br>${contentView.review }</span><br>
+		<img class="img-fluid mb-4" id="preview" src=
+				"${contextPath}/board/download?write_no=${contentView.write_no}&image_file_name=${contentView.image_file_name}" style="width=240px; height=320px; margin-top: 20px"><br>
+		<a class="reset-anchor text-small" href="${contextPath }/board/boardReplyView?write_no=${contentView.write_no}"><i class="fas fa-share mr-2 text-primary"></i><strong>Reply</strong></a>
+        <a class="reset-anchor text-small" href="${contextPath}/board/boardAllList"><i class="fas fa-share mr-2 text-primary"></i><strong>List</strong></a>
 	
-<c:import url="../default/footer.jsp"/>
+	</div>
+
+<%@ include file="/WEB-INF/views/default/footer.jsp"%>
+
+    <!-- JavaScript files-->
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0b882b157e7e3d6a5d7b9b2560cd21cd&libraries=services"></script>
+	<script src="/team/resources/js/kakaomap.js"></script>
+    <script src="/team/resources/vendor/jquery/jquery.min.js"></script>
+    <script src="/team/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/team/resources/vendor/owl.carousel2/owl.carousel.min.js"></script>
+    <script src="/team/resources/js/front.js"></script>
+    <script>
+      // ------------------------------------------------------- //
+      //   Inject SVG Sprite - 
+      //   see more here 
+      //   https://css-tricks.com/ajaxing-svg-sprite/
+      // ------------------------------------------------------ //
+      function injectSvgSprite(path) {
+      
+          var ajax = new XMLHttpRequest();
+          ajax.open("GET", path, true);
+          ajax.send();
+          ajax.onload = function(e) {
+          var div = document.createElement("div");
+          div.className = 'd-none';
+          div.innerHTML = ajax.responseText;
+          document.body.insertBefore(div, document.body.childNodes[0]);
+          }
+      }
+      // this is set to BootstrapTemple website as you cannot 
+      // inject local SVG sprite (using only 'icons/orion-svg-sprite.svg' path)
+      // while using file:// protocol
+      // pls don't forget to change to your domain :)
+      injectSvgSprite('https://bootstraptemple.com/files/icons/orion-svg-sprite.svg'); 
+      
+    </script>
+    <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+
 
 </body>
 </html>

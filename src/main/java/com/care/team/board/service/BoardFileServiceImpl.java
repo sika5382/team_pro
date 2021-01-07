@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -25,7 +26,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 @Service
 public class BoardFileServiceImpl implements BoardFileService{
 	
-	private final String IMAGE_REPO = "c:\\spring\\image_repo2";
+	//private final String IMAGE_REPO = "c:\\spring\\image_repo2";
 	
 	public Map<String, Object> getData(MultipartHttpServletRequest multipartRequest) throws Exception{
 		multipartRequest.setCharacterEncoding("utf-8");
@@ -34,15 +35,20 @@ public class BoardFileServiceImpl implements BoardFileService{
 		while(enu.hasMoreElements()) {
 			String name = (String)enu.nextElement();
 			String value = multipartRequest.getParameter(name);
+			System.out.println("name"+name);
+			System.out.println("value"+value);
 			writeMap.put(name, value);
 		}
 		String imageFileName = uploadFile(multipartRequest);
 		writeMap.put("image_file_name", imageFileName);
 		return writeMap;
 	}
-	
 	private String uploadFile(MultipartHttpServletRequest multipartRequest) throws Exception{
+		
 		String imageFileName= null;
+		//경로 변경
+		String IMAGE_REPO = multipartRequest.getSession().getServletContext().getRealPath("/resources/board");	
+		
 		Iterator<String> fileNames = multipartRequest.getFileNames();
 		while(fileNames.hasNext()){
 			String fileName = fileNames.next();//name을 가져온다(file1, file2...)
@@ -58,7 +64,7 @@ public class BoardFileServiceImpl implements BoardFileService{
 		return imageFileName;
 	}
 
-	public String getMessage(int result,int write_no, String image_file_name) throws Exception {
+	public String getMessage(int result,int write_no, String image_file_name, String IMAGE_REPO) throws Exception {
 		String message = null;
 		if(result != -1 ) {
 			if(image_file_name != null && image_file_name.length() != 0) {
@@ -66,6 +72,7 @@ public class BoardFileServiceImpl implements BoardFileService{
 				File destDir = new File(IMAGE_REPO+"\\"+write_no);
 				//true : destDir 디렉터리 생성. false : 디렉터리 생성하지 않음
 				FileUtils.moveFileToDirectory(srcFile, destDir,true);
+				System.out.println("file created");
 			}
 			message = "<script>alert('새글을 추가했습니다.');";
 			message += " location.href='boardAllList';</script>";
@@ -77,9 +84,8 @@ public class BoardFileServiceImpl implements BoardFileService{
 		}
 		return message;
 	}
-	
-	public void download(int write_no,String image_file_name, 
-			HttpServletResponse response) throws Exception {
+	public void download(int write_no,String image_file_name, String IMAGE_REPO
+			,HttpServletResponse response) throws Exception {
 		OutputStream out = response.getOutputStream();
 		String downFile = IMAGE_REPO + "\\" + write_no +"\\"+image_file_name;
 		File file = new File(downFile);
@@ -98,14 +104,23 @@ public class BoardFileServiceImpl implements BoardFileService{
 		in.close(); out.close();
 		System.out.println("다운로드 서비스 실행 됨");
 	}
-	public String getMessage(int result,int write_no,String originalFile,String newFile) throws Exception {
+	
+	public String getMessage(String deleteChk, int result,int write_no,String originalFile,String newFile,String IMAGE_REPO) throws Exception {
+		System.out.println("deleteChk:"+deleteChk);
+		System.out.println("result:"+result);
+		System.out.println("write_no:"+write_no);
+		System.out.println("originalFile:"+originalFile);
+		System.out.println("newFile:"+newFile);
 		String message = "<script>";
 		if(result != -1) {
 			if(newFile.length() != 0) {
+				File oldFile = new File(IMAGE_REPO+"\\"+write_no+"\\"+originalFile);
+				oldFile.delete();
+				
 				File srcFile = new File(IMAGE_REPO+"\\"+"temp"+"\\"+newFile);
 				File destDir = new File(IMAGE_REPO+"\\"+write_no);
 				FileUtils.moveFileToDirectory(srcFile, destDir, true);
-
+			}else if( deleteChk.equals("chk") ) {
 				File oldFile = new File(IMAGE_REPO+"\\"+write_no+"\\"+originalFile);
 				oldFile.delete();
 			}
@@ -121,8 +136,7 @@ public class BoardFileServiceImpl implements BoardFileService{
 		message +=" </script>";
 		return message;
 	}
-	
-	public void boardFileDelete(int write_no) throws Exception {
+	public void boardFileDelete(int write_no, String IMAGE_REPO) throws Exception {
 		File destDir = new File(IMAGE_REPO+"\\"+write_no);
 		FileUtils.deleteDirectory(destDir);
 	}

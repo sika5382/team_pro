@@ -16,6 +16,7 @@
 <style>
 body {
 	background: #ffffff;
+	padding: 60px 0;
 }
 
 div {

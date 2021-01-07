@@ -1,110 +1,191 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
-<html>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <head>
 <meta charset="UTF-8">
 
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="all,follow">
-    <!-- Bootstrap CSS-->
-    <link rel="stylesheet" href="/resources/vendor/bootstrap/css/bootstrap.min.css">
+ <!--  추가 -->
+     <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="/team/resources/vendor/bootstrap/css/bootstrap.min.css">
     <!-- Owl Carousel -->
-    <link rel="stylesheet" href="/resources/vendor/owl.carousel2/assets/owl.carousel.min.css">
-    <link rel="stylesheet" href="/resources/vendor/owl.carousel2/assets/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/team/resources/vendor/owl.carousel2/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="/team/resources/vendor/owl.carousel2/assets/owl.theme.default.min.css">
     <!-- Google fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:300,400&amp;display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap">
     <!-- theme stylesheet-->
-    <link rel="stylesheet" href="/resources/css/style.default.css" id="theme-stylesheet">
+    <link rel="stylesheet" href="/team/resources/css/style.default.css" id="theme-stylesheet">
     <!-- Custom stylesheet - for your changes-->
-    <link rel="stylesheet" href="/resources/css/custom.css">
+    <link rel="stylesheet" href="/team/resources/css/custom.css">
     <!-- Favicon-->
-    <link rel="shortcut icon" href="/resources/img/favicon.png">
+    <link rel="shortcut icon" href="/team/resources/img/favicon.png">
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
-        
-<title>Insert title here</title>
-<script>
-	function loginCheck(isLogOn, writeForm, loginForm){
-		if(isLogOn == ""){
-			alert("로그인 후 글쓰기가 가능합니다")
-			location.href=loginForm
-		}else{
-			location.href = writeForm
-		}
+     <!-- map style -->
+     <link rel="stylesheet" href="/team/resources/css/map.css">
+<title>글쓰기창</title>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+   function readURL(input) {
+	   var file = input.files[0] //파일에 대한 정보
+      if (file != '') {
+	      var reader = new FileReader();
+	      reader.readAsDataURL(file); //읽고 
+	      reader.onload = function (e) { // 로드한 값을 표현한다
+	        $('#preview').attr('src', e.target.result);
+          }
+      }
+  }
+	function deleteImg(){
+		document.getElementById("img_wrap").style.display = "none";
+		document.getElementById("deleteChk").value = "chk";
 	}
 </script>
+<title>ModifyForm</title>
 </head>
-<body>
 
-   <c:import url="../default/header.jsp"/>
-   
-    <!-- Hero section -->
-    <section class="hero bg-center bg-cover" style="background: url(/resources/img/hero-banner.jpg)">
-      <div class="dark-overlay py-5">
-        <div class="overlay-content">
-          <div class="container py-5 text-white text-center">
-            <h1>Blog listing</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+ <body>
+ 	<% if(session.getAttribute("userid") == null){%>
+ 		<script>alert("로그인한 회원만 이용가능합니다.")
+ 				location.href="/team/login"</script>
+ 	<%}%>
+  	<c:import url="../default/header.jsp"/>
     
-    <!-- Blog listing -->
-    <section class="pt-5">
-      <div class="container pt-5">
-        <div class="row mb-5">
-          <div class="col-lg-8">
-            <div class="row text-center">
-           
-     <!-- 업로드 한 게시물 올라오는 부분  -->
-        		<c:set var="contextPath" value="${pageContext.request.contextPath}" />
-			
-				<c:if test="${boardList.size() == 0 }">
-					<h3>등록된 글이 없습니다.</h3>
-				</c:if>
-				
-				<c:forEach items="${boardList}" var="dto">
-					<div class="col-lg-6 mb-5">
-						<a href="${contextPath }/board/contentView?write_no=${dto.write_no}">
-						<img class="img-fluid mb-4" id="preview" 
-							src="${contextPath}/board/download?write_no=${dto.write_no}&image_file_name=${dto.image_file_name}" alt="이미지 없음"></a>		
-						<ul class="list-inline small text-uppercase mb-0">
-							<li class="list-inline-item align-middle mr-0"><a class="font-weight-bold reset-anchor" href="#">No. ${dto.write_no}</a></li>	
-							<li class="list-inline-item mr-0 text-gray align-middle">By ${dto.nickname }</li>
-							<li class="list-inline-item text-gray align-middle">${dto.savedate }</li>	
-						</ul>
-						<h3 class="h4 mt-2"><a class="reset-anchor" href="${contextPath }/board/contentView?write_no=${dto.write_no}">${dto.place_name}</a></h3>
-						<a class="reset-anchor text-gray text-uppercase small mb-2 d-block" href="#">Travel guide</a>
-     	          		<p class="text-small mb-1">${dto.review }</p><a class="btn btn-link" href="index.html">Continue reading</a>
-            		</div>
-				</c:forEach>	
-							              
+    <section class="py-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mb-5 mb-lg-0">
+            <p class="lead first-letter-styled line-height-lg"></p>
+            <div class="px-lg-5 mb-5">
+              <blockquote class="blockquote-custom"></blockquote>
             </div>
             
-            <!-- Listing navigation 페이지이동용 -->
-            <div class="p-4 bg-light mb-5">
+            <!-- 파일 업로드  -->
+            <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+			<c:set var="path" value="${pageContext.request.contextPath }"/>  
+			
+            <h3 class="h4 mb-4">당신의 경험을 공유해 주세요</h3>
+			<!-- map 영역 -->
+			<div class="input_wrap" style="margin: 5px 5px 15px 5px;">
+				<table border="1">
+					<tr>
+						<th><div class="map_wrap">
+							<div id="map" style="width: 100%; height: 100%; position: relative; overflow: hidden; margin-top: 20px; align: center;"></div>
+						</div></th>
+						<th><div id="menu_wrap"	style="position: static; width: 300px; height: 300px;" class="bg_white">
+							<div class="option" style="align: center;">
+								<form onsubmit="searchPlaces(); return false;">
+									키워드 : <input type="text" value="" id="keyword" size="12">
+									<button type="submit">검색하기</button>
+								</form>
+							</div>
+							<hr>
+							<ul id="placesList" style="padding: 0px;"></ul>
+							<div id="pagination"></div>
+						</div></th></tr>
+				</table>
+			</div>
+			<!-- 수정폼 -->
+			<form class="mb-5" action="<%=request.getContextPath() %>/board/modify" method="post" enctype="multipart/form-data">
+            	<input type="hidden" name="write_no" value="${contentView.write_no }">
+            	<input type="hidden" name="id" value="<%=session.getAttribute("userid")%>">
+            	<input type="hidden" name="nickname" value="<%=session.getAttribute("nickname")%>">
               <div class="row">
-                <div class="col-sm-6 text-center text-sm-left mb-2 mb-sm-0">
-                	<a class="btn btn-outline-secondary btn-sm" href="/team/board/boardAllList?num=${num-1}">
-                		<i class="fas fa-angle-left mr-2"></i>Prev posts</a></div>
-                <div class="col-sm-6 text-center text-sm-right text-right">
-                	<a class="btn btn-outline-secondary btn-sm" href="/team/board/boardAllList?num=${num+1}">
-                		<i class="fas fa-angle-right ml-2"></i>Next posts</a></div>
+              	<div class="form-group col-lg-8" >
+              		<h5>작성자 : <%= session.getAttribute("nickname") %></h5>             		
+              	</div>
               </div>
-            </div>
+              <div class="row">
+                <div class="form-group col-lg-8">
+                  <h6>장소명</h6><input class="form-control" type="text" id="site_name" name="place_name" value="${contentView.place_name }">
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-lg-8">
+                  <h6>주소</h6><input class="form-control" type="text" id="addr"name="place_addr" value="${contentView.place_addr }">
+                </div>
+              </div>
+              <div class="row">
+              	<div class="form-group col-lg-8">
+                  <h6>비용</h6><input class="form-control" type="text" id="price"name="price" value="${contentView.price }">
+                </div>
+              </div>
+              <div class="row">
+              	<div class="form-group col-lg-8">
+                  <h6>기타 편의시설</h6><input class="form-control" type="text" id="place_etc"name="place_etc" value="${contentView.place_etc }">
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-lg-8">
+                  <h6>후기</h6><textarea class="form-control" name="review">${contentView.review }</textarea>
+                </div>
+                
+                <div>
+                	<h1></h1>
+              		 <b>이미지파일 첨부</b><br>
+              		 <c:set var="image" value="${contentView.image_file_name }"/>
+              		 <c:if test="${ image != null }">
+              		 	<div id="img_wrap">
+               			<button type="button" class="btn btn-warning btn-circle" style="padding:2px 4px; border-radius: 50%;" onclick="deleteImg()"><i class="fa fa-times"></i></button>
+               			<a href="<%=request.getContextPath() %>/board/download?write_no=${contentView.write_no}&image_file_name=${contentView.image_file_name}">${contentView.image_file_name}</a>
+               			<img class="img-fluid mb-4" width=200 height=200 style="margin-top: 20px;" id="prv" src=
+							"<%=request.getContextPath() %>/board/download?write_no=${contentView.write_no}&image_file_name=${contentView.image_file_name}" ><br>
+                		</div>
+                	</c:if>
+                		<input type="hidden" id="deleteChk" name="deleteChk" value="no">
+                		<input type="hidden" name="write_no" value="${contentView.write_no }">
+                		<input type="hidden" name="originalFileName" value="${contentView.image_file_name }"/>
+       					<input type="file" name="image_file_name" onchange="readURL(this);" />
+       					<img id="preview" src="#" width=100 height=100 alt="선택된 이미지가 없습니다"/>            		
+                </div>
+              
+                <div class="form-group col-lg-12">
+                  <button class="btn btn-dark" type="submit">Submit your comment</button>
+                </div>
+              </div>
+            </form>
+            <h3 class="h4 mb-4 d-flex align-items-center"><span>Comments</span><span class="text-small ml-3 text-gray">- 3 Comments</span></h3>
+            <ul class="list-unstyled comments">
+              <li>
+                <div class="d-flex mb-4">
+                  <div class="pr-2 flex-grow-1" style="width: 75px; min-width: 75px;"><img class="rounded-circle shadow-sm img-fluid img-thumbnail" src="/team/resources/img/person-1.jpg" alt=""></div>
+                  <div class="pl-2">
+                    <p class="small mb-0 text-primary">15 Aug 2019</p>
+                    <h5>Jimmy Roy</h5>
+                    <p class="text-muted text-small mb-2">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At.</p><a class="reset-anchor text-small" href="#"><i class="fas fa-share mr-2 text-primary"></i><strong>Reply</strong></a>
+                  </div>
+                </div>
+                <ul class="list-unstyled">
+                  <li> 
+                    <div class="d-flex mb-4">
+                      <div class="pr-2 flex-grow-1" style="width: 75px; min-width: 75px;"><img class="rounded-circle shadow-sm img-fluid img-thumbnail" src="/team/resources/img/person-2.jpg" alt=""></div>
+                      <div class="pl-2">
+                        <p class="small mb-0 text-primary">19 Sep 2019</p>
+                        <h5>Melissa Johanson</h5>
+                        <p class="text-muted text-small mb-2">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At.</p><a class="reset-anchor text-small" href="#"><i class="fas fa-share mr-2 text-primary"></i><strong>Reply</strong></a>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <div class="d-flex mb-4">
+                  <div class="pr-2 flex-grow-1" style="width: 75px; min-width: 75px;"><img class="rounded-circle shadow-sm img-fluid img-thumbnail" src="/team/resources/img/person-3.jpg" alt=""></div>
+                  <div class="pl-2">
+                    <p class="small mb-0 text-primary">10 Oct 2019</p>
+                    <h5>David Nguyen</h5>
+                    <p class="text-muted text-small mb-2">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At.</p><a class="reset-anchor text-small" href="#"><i class="fas fa-share mr-2 text-primary"></i><strong>Reply</strong></a>
+                  </div>
+                </div>
+              </li>
+            </ul>
           </div>
           
-          <!-- Sidebar -->
+           <!-- Sidebar -->
           <div class="col-lg-4">
-           
-            <!-- About me widget -->
+          
+             <!-- About me widget -->
             <div class="mb-5 text-center"><img class="mb-3 rounded-circle img-thumbnail shadow-sm" src="/team/resources/img/author.jpg" alt="" width="110">
               <h3 class="h4">About me</h3>
               <p class="text-small text-muted px-sm-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</p><img class="d-block mx-auto mb-3" src="/team/resources/img/signature.png" alt="" width="60">
@@ -201,6 +282,8 @@
     <c:import url="../default/footer.jsp"/>
     
     <!-- JavaScript files-->
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0b882b157e7e3d6a5d7b9b2560cd21cd&libraries=services"></script>
+	<script src="/team/resources/js/kakaomap.js"></script>
     <script src="/team/resources/vendor/jquery/jquery.min.js"></script>
     <script src="/team/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/team/resources/vendor/owl.carousel2/owl.carousel.min.js"></script>

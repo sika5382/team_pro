@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+
+
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>당신을 위한 여행</title>
 <meta name="description" content="">
@@ -13,24 +14,24 @@
 <meta name="robots" content="all,follow">
 <!-- Bootstrap CSS-->
 <link rel="stylesheet"
-	href="/team/resources/vendor/bootstrap/css/bootstrap.min.css">
+	href="/resources/vendor/bootstrap/css/bootstrap.min.css">
 <!-- Owl Carousel -->
 <link rel="stylesheet"
-	href="/team/resources/vendor/owl.carousel2/assets/owl.carousel.min.css">
+	href="/resources/vendor/owl.carousel2/assets/owl.carousel.min.css">
 <link rel="stylesheet"
-	href="/team/resources/vendor/owl.carousel2/assets/owl.theme.default.min.css">
+	href="/resources/vendor/owl.carousel2/assets/owl.theme.default.min.css">
 <!-- Google fonts-->
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Nunito:300,400&amp;display=swap">
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap">
 <!-- theme stylesheet-->
-<link rel="stylesheet" href="/team/resources/css/style.default.css"
+<link rel="stylesheet" href="/resources/css/style.default.css"
 	id="theme-stylesheet">
 <!-- Custom stylesheet - for your changes-->
-<link rel="stylesheet" href="/team/resources/css/custom.css">
+<link rel="stylesheet" href="/resources/css/custom.css">
 <!-- Favicon-->
-<link rel="shortcut icon" href="/team/resources/img/favicon.png">
+<link rel="shortcut icon" href="/resources/img/favicon.png">
 </head>
 <body>
 
@@ -88,7 +89,7 @@
 		<!-- Navbar 1 -->
 		<nav class="navbar navbar-expand-lg navbar-light bg-white py-4">
 			<div class="container text-center">
-				<a class="navbar-brand mx-auto" href="/team/"><img
+				<a class="navbar-brand mx-auto" href="index.html"><img
 					class="mb-2" src="/team/resources/img/logo.svg" alt="" width="140">
 					<p class="text-small text-uppercase text-gray mb-0">당신의 단 하나뿐인
 						여행 가이드</p></a>
@@ -109,17 +110,20 @@
 					id="navbarSupportedContent">
 					<ul class="navbar-nav mx-auto">
 						<li class="nav-item px-1">
-							<!-- Link--> <a class="nav-link active" href="/team/">Home</a>
+							<!-- Link--> 
+							<a class="nav-link active" href="/team/">Home</a>
 						</li>
 						<li class="nav-item px-1">
-							<!-- Link--> <a class="nav-link" href="/team/board/boardAllList">Listing</a>
+							<!-- Link--> 
+							<a class="nav-link" href="/team/board/boardAllList">Listing</a>
 						</li>
 						<li class="nav-item px-1">
-							<!-- Link--> <a class="nav-link" href="/team/board/writeForm">Post</a>
+							<!-- Link--> 
+							<a class="nav-link" href="/team/board/writeForm">Post</a>
 						</li>
 						<!-- Link-->
 						<c:choose>
-							<c:when test="${userid == null }">
+							<c:when test="${sessionScope.userid == null }">
 								<li class="nav-item px-1"><a class="nav-link"
 									href="/team/login">Login</a></li>
 							</c:when>
