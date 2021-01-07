@@ -216,5 +216,11 @@ public class RegisterController {
 		return "redirect:/login";
 	}
 	
+	@RequestMapping("profileDownload")
+	public void profileDownload(HttpServletRequest request, 
+		HttpServletResponse response, Model model) throws Exception {
+		rs.profileDownload(model, request, response);
+	}
+	
 }
 

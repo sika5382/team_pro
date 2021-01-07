@@ -28,12 +28,14 @@ public class BoardServiceImpl implements BoarderService{
 		int allCount = dao.selectBoardCount(); //글 총갯수 얻기
 		int repeat = allCount / pageLetter;
 		if(allCount % pageLetter != 0) { 
-			repeat += 1; 
+			repeat += 1; //페이지수
 		}
 		int end = num*pageLetter;
 		int start = end + 1 - pageLetter;
+		
 		model.addAttribute("repeat",repeat);
 		model.addAttribute("boardList",dao.selectAllBoardList(start, end));
+		
 	}
 	
 	public void selectLocalBoardList(Model model, String local, int num) {

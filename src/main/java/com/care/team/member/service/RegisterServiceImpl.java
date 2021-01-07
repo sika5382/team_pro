@@ -2,6 +2,9 @@ package com.care.team.member.service;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -114,14 +117,22 @@ public class RegisterServiceImpl implements RegisterService{
 				//System.out.println("result : "+result);
 
 				message = 
-					rfs.getMessage(result,userId,reProfileName,profile_Name,Path);
-					
+					rfs.getMessage(result,userId,reProfileName,profile_Name,Path);	
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return message;
+	}
+
+	@Override
+	public void profileDownload(Model model, HttpServletRequest request, 
+			HttpServletResponse response) throws Exception {
+		String userId = request.getParameter("id");
+		String Path = 
+			request.getSession().getServletContext().getRealPath("/resources/profile/");
+		rfs.profileDownload(model,userId,Path,response);
+		
 	}
 
 }

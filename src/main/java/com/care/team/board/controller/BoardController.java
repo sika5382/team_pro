@@ -72,7 +72,7 @@ public class BoardController {
 	public void download( HttpServletRequest request ,@RequestParam("write_no") int write_no, 
 		@RequestParam("image_file_name") String image_file_name, HttpServletResponse response)throws Exception {
 		System.out.println("download 컨트롤러 실행 ");
-		String IMAGE_REPO = request.getSession().getServletContext().getRealPath("/resource/board/");
+		String IMAGE_REPO = request.getSession().getServletContext().getRealPath("/resources/board/");
 		bfs.download(write_no, image_file_name, IMAGE_REPO, response);
 	}
 	

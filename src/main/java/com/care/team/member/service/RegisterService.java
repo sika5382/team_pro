@@ -1,5 +1,8 @@
 package com.care.team.member.service;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.care.team.member.data.MemberDTO;
@@ -15,7 +18,8 @@ public interface RegisterService {
 	public void pwdModify(MemberDTO dto); //비밀번호 변경
 	public void userDelete(String userId, String path); //회원삭제	
 	public String userProfile(
-			MultipartHttpServletRequest multipart, String userid) throws Exception; //이미지변경
+		MultipartHttpServletRequest multipart, String userid) throws Exception; //이미지변경
+	public void profileDownload(Model model, HttpServletRequest request,
+		HttpServletResponse response) throws Exception;
 	
-
 }

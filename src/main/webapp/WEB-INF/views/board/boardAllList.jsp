@@ -29,6 +29,7 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
         
 <title>Insert title here</title>
+
 <script>
 	function loginCheck(isLogOn, writeForm, loginForm){
 		if(isLogOn == ""){
@@ -39,6 +40,7 @@
 		}
 	}
 </script>
+
 </head>
 <body>
 
@@ -65,37 +67,45 @@
            
      <!-- 업로드 한 게시물 올라오는 부분  -->
         		<c:set var="contextPath" value="${pageContext.request.contextPath}" />
-			
-				<c:if test="${boardList.size() == 0 }">
-					<h3>등록된 글이 없습니다.</h3>
-				</c:if>
-				
-				<c:forEach items="${boardList}" var="dto">
-					<div class="col-lg-6 mb-5">
-						<a href="${contextPath }/board/contentView?write_no=${dto.write_no}">
-						<img class="img-fluid mb-4" id="preview" 
-							src="${contextPath}/board/download?write_no=${dto.write_no}&image_file_name=${dto.image_file_name}" alt="이미지 없음"></a>		
-						<ul class="list-inline small text-uppercase mb-0">
-							<li class="list-inline-item align-middle mr-0"><a class="font-weight-bold reset-anchor" href="#">No. ${dto.write_no}</a></li>	
-							<li class="list-inline-item mr-0 text-gray align-middle">By ${dto.nickname }</li>
-							<li class="list-inline-item text-gray align-middle">${dto.savedate }</li>	
-						</ul>
-						<h3 class="h4 mt-2"><a class="reset-anchor" href="${contextPath }/board/contentView?write_no=${dto.write_no}">${dto.place_name}</a></h3>
-						<a class="reset-anchor text-gray text-uppercase small mb-2 d-block" href="#">Travel guide</a>
-     	          		<p class="text-small mb-1">${dto.review }</p><a class="btn btn-link" href="index.html">Continue reading</a>
-            		</div>
-				</c:forEach>	
+		
+				<c:choose>
+					<c:when test="${boardList.size() == 0 }">
+						<h3>등록된 글이 없습니다.</h3>
+					</c:when>
+					<c:otherwise>
+						<c:forEach items="${boardList}" var="dto">
+							<div class="col-lg-6 mb-5">
+								<a href="${contextPath }/board/contentView?write_no=${dto.write_no}">
+									<img class="img-fluid mb-4" id="preview" 
+										src="${contextPath}/board/download?write_no=${dto.write_no}&image_file_name=${dto.image_file_name}" alt="이미지 없음"></a>		
+								<ul class="list-inline small text-uppercase mb-0">
+									<li class="list-inline-item align-middle mr-0"><a class="font-weight-bold reset-anchor" href="#">No. ${dto.write_no}</a></li>	
+									<li class="list-inline-item mr-0 text-gray align-middle">By ${dto.nickname }</li>
+									<li class="list-inline-item text-gray align-middle">${dto.savedate }</li>	
+								</ul>
+								<h3 class="h4 mt-2"><a class="reset-anchor" href="${contextPath }/board/contentView?write_no=${dto.write_no}">${dto.place_name}</a></h3>
+								<a class="reset-anchor text-gray text-uppercase small mb-2 d-block" href="#">Travel guide</a>
+     	          				<p class="text-small mb-1">${dto.review }</p><a class="btn btn-link" href="index.html">Continue reading</a>
+            				</div>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
 							              
             </div>
             
             <!-- Listing navigation 페이지이동용 -->
             <div class="p-4 bg-light mb-5">
               <div class="row">
-                <div class="col-sm-6 text-center text-sm-left mb-2 mb-sm-0">
-                	<a class="btn btn-outline-secondary btn-sm" href="/team/board/boardAllList?num=${num-1}">
+                <div class="col-sm-4 text-center text-sm-left mb-2 mb-sm-0">
+                	<a class="btn btn-outline-secondary btn-sm" 
+                		href="${contextPath}/board/boardAllList?num=${num-1}">
                 		<i class="fas fa-angle-left mr-2"></i>Prev posts</a></div>
-                <div class="col-sm-6 text-center text-sm-right text-right">
-                	<a class="btn btn-outline-secondary btn-sm" href="/team/board/boardAllList?num=${num+1}">
+                <div class="col-sm-4 text-center text-sm-right text-right">
+                
+                </div>
+                <div class="col-sm-4 text-center text-sm-right text-right">
+                	<a class="btn btn-outline-secondary btn-sm" 
+                		href="${contextPath}/board/boardAllList?num=${num+1}">
                 		<i class="fas fa-angle-right ml-2"></i>Next posts</a></div>
               </div>
             </div>
@@ -105,17 +115,20 @@
           <div class="col-lg-4">
            
             <!-- About me widget -->
-            <div class="mb-5 text-center"><img class="mb-3 rounded-circle img-thumbnail shadow-sm" src="/team/resources/img/author.jpg" alt="" width="110">
-              <h3 class="h4">About me</h3>
-              <p class="text-small text-muted px-sm-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</p><img class="d-block mx-auto mb-3" src="/team/resources/img/signature.png" alt="" width="60">
-              <ul class="list-inline text-small mb-0">
-                <li class="list-inline-item"><a class="reset-anchor" href="#"><i class="fab fa-facebook-f"></i></a></li>
-                <li class="list-inline-item"><a class="reset-anchor" href="#"><i class="fab fa-twitter"></i></a></li>
-                <li class="list-inline-item"><a class="reset-anchor" href="#"><i class="fab fa-instagram"></i></a></li>
-                <li class="list-inline-item"><a class="reset-anchor" href="#"><i class="fab fa-linkedin"></i></a></li>
-                <li class="list-inline-item"><a class="reset-anchor" href="#"><i class="fab fa-youtube"></i></a></li>
-                <li class="list-inline-item"><a class="reset-anchor" href="#"><i class="fab fa-vimeo-v"></i></a></li>
-              </ul>
+            <div class="mb-5 text-center">
+            	<img class="mb-3 rounded-circle img-thumbnail shadow-sm" 
+            		src="${contextPath}/member/profileDownload?id=${userid}" alt="" width="120" height="150">
+              	<h3 class="h4">${userid }</h3>
+             	 <p class="text-small text-muted px-sm-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</p>
+         	     <img class="d-block mx-auto mb-3" src="/resources/img/signature.png" alt="" width="60">
+         	     <ul class="list-inline text-small mb-0">
+          	      	<li class="list-inline-item"><a class="reset-anchor" href="#"><i class="fab fa-facebook-f"></i></a></li>
+   	            	<li class="list-inline-item"><a class="reset-anchor" href="#"><i class="fab fa-twitter"></i></a></li>
+                	<li class="list-inline-item"><a class="reset-anchor" href="#"><i class="fab fa-instagram"></i></a></li>
+                	<li class="list-inline-item"><a class="reset-anchor" href="#"><i class="fab fa-linkedin"></i></a></li>
+                	<li class="list-inline-item"><a class="reset-anchor" href="#"><i class="fab fa-youtube"></i></a></li>
+                	<li class="list-inline-item"><a class="reset-anchor" href="#"><i class="fab fa-vimeo-v"></i></a></li>
+              	</ul>
             </div>
             
             <!-- Categories widget -->

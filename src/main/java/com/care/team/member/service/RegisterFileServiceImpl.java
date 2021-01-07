@@ -1,13 +1,19 @@
 package com.care.team.member.service;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.OutputStream;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -178,6 +184,30 @@ public class RegisterFileServiceImpl implements RegisterFileService{
 		 } catch (Exception e) {
 			e.printStackTrace();
 		 }
+	}
+
+	@Override
+	public void profileDownload(Model model, String userId, String Path, 
+			HttpServletResponse response) throws Exception {
+		OutputStream out = response.getOutputStream();
+		String fileName = dao.getProfile_Img(userId);
+		String downFile = Path + "\\" + userId+"\\"+fileName;
+		File file = new File(downFile);
+		//Content-disposition :파일 다운로드를 처리하는 HTTP헤더 중 하나다
+		//Content-disposition : attachment : attachment는 파일을 다운로드하여 브라우저로 표현 하는 의미다
+		//fileName는 파일을 다운로드할때의 이름을 지정해 준다.
+		response.addHeader("Content-disposition", "attachment; fileName=" + fileName);
+		FileInputStream in = new FileInputStream(file);
+		byte[] buffer = new byte[10 * 1024 * 1024];
+		while (true) {//브라우저로 전송
+			int count = in.read(buffer);
+			if (count == -1) 
+				break;
+			out.write(buffer, 0, count);
+		}
+		in.close(); out.close();
+		System.out.println("다운로드 서비스 실행 됨");
+		
 	}
 
 }
